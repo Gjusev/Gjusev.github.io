@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f1f0ec">
-  <script>document.documentElement.classList.add("js")</script>
+  <script>(function(d){d.classList.add("js");var q=new URLSearchParams(location.search).get("hero"),h;try{if(q)localStorage.setItem("hero",q);h=q||localStorage.getItem("hero")}catch(e){}d.dataset.hero=h||"window"})(document.documentElement)</script>
   {% seo %}
   {% feed_meta %}
   <link rel="preload" href="{{ '/assets/fonts/fraunces.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>

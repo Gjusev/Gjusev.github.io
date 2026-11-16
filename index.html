@@ -3,7 +3,11 @@ layout: default
 ---
 {% assign d = site.data.projects %}
 {% assign total = 0 %}{% for g in d.groups %}{% assign total = total | plus: g.items.size %}{% endfor %}
-<header class="bar m">
+{% assign reel = "forecast-arena,voice-evals,treeseek,zerocall,gate-calibrated,voxentity-eu,trust-but-verify,laya-compactor" | split: "," %}
+{% assign withmedia = site.projects | where_exp: "p", "p.image" %}
+{% capture lede %}Founder &amp; AI product engineer in Siegen, Germany. I build open tools that test AI systems against reality, make their decisions inspectable and keep data local.{% endcapture %}
+
+<header class="bar m over">
   <a class="wm" href="{{ '/' | relative_url }}">Youssef</a>
   <nav aria-label="Main">
     <a href="#projects">Projects</a>
@@ -14,33 +18,66 @@ layout: default
 </header>
 
 <main id="main-content">
-  <section class="hero m">
-    <h1 class="line">
-      <span>Youssef</span>
-      <span class="frame" data-rotate>
-        <img src="{{ '/assets/work/forecast-banner.webp' | relative_url }}" width="1400" height="700" alt="forecast-arena poster: AI vs Reality">
-      </span>
-      <span>measures AI</span>
-    </h1>
-    <div class="intro">
-      <p class="lede">Founder &amp; AI product engineer in Siegen, Germany. I build open tools that test AI systems against reality, make their decisions inspectable and keep data local. Every number gets published, the bad ones too.</p>
-      <p class="actions">
-        <a class="btn" href="{{ d.links[0].url }}">Talk to me on LinkedIn</a>
-        <a href="#projects">See all {{ total }} projects</a>
-      </p>
+
+  <!-- Hero 1 · a window that opens to the edges: real demo clips, the window grows to full screen on scroll -->
+  <section class="hero hw" data-variant="window" aria-labelledby="h1-window">
+    <div class="hw-stage">
+      <div class="hw-media" data-reel>
+        {% for n in reel %}{% assign pp = site.projects | where: "name", n | first %}{% if pp.video %}
+        <video data-name="{{ pp.name }}" data-url="{{ pp.url | relative_url }}" data-desc="{{ pp.description | escape }}" src="{{ pp.video | relative_url }}" poster="{{ pp.image | relative_url }}" muted playsinline preload="{% if forloop.first %}auto{% else %}none{% endif %}" aria-hidden="true"{% if forloop.first %} class="on"{% endif %}></video>
+        {% endif %}{% endfor %}
+      </div>
+      <div class="hw-text m">
+        <h1 id="h1-window" class="hw-title">Youssef<br>measures AI</h1>
+        <div class="hw-side">
+          <p>{{ lede }}</p>
+          <p class="actions"><a class="btn" href="{{ d.links[0].url }}">Talk to me on LinkedIn</a></p>
+        </div>
+      </div>
+      <a class="hw-cap m" href="{{ site.projects | where: 'name', reel[0] | map: 'url' | first | relative_url }}" data-cap><span class="hw-cap-name">{{ reel[0] }}</span> <span class="hw-cap-desc">Now playing</span></a>
+    </div>
+  </section>
+
+  <!-- Hero 2 · ring of frames: every project with a picture sits around the headline -->
+  <section class="hero hr m" data-variant="ring" aria-labelledby="h1-ring">
+    <div class="hr-ring">
+      {% for pp in withmedia limit: 22 %}
+      <a class="hr-f" href="{{ pp.url | relative_url }}" data-name="{{ pp.name }}" data-desc="{{ pp.description | default: pp.name | escape }}"><img src="{{ pp.image | relative_url }}" alt="{{ pp.name }}" loading="lazy"></a>
+      {% endfor %}
+      <div class="hr-core">
+        <h1 id="h1-ring" class="hr-title">Youssef<br>measures AI</h1>
+        <p class="hr-lede" data-default="{{ lede | strip_html | escape }}">{{ lede }}</p>
+        <p class="actions"><a class="btn" href="{{ d.links[0].url }}">Talk to me on LinkedIn</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Hero 3 · sentence split by a frame: a reel of projects passes between the two halves -->
+  <section class="hero hs" data-variant="reel" aria-labelledby="h1-reel">
+    <div class="hs-stage m">
+      <h1 id="h1-reel" class="hs-title"><span class="hs-a">Youssef</span> <span class="hs-b">measures AI</span></h1>
+      <div class="hs-frame">
+        <div class="hs-strip" data-strip>
+          {% for n in reel %}{% assign pp = site.projects | where: "name", n | first %}
+          <a href="{{ pp.url | relative_url }}" class="hs-item"><img src="{{ pp.image | relative_url }}" alt="{{ pp.name }}"{% unless forloop.first %} loading="lazy"{% endunless %}><span>{{ pp.name }}</span></a>
+          {% endfor %}
+        </div>
+      </div>
+      <p class="hs-lede">{{ lede }}</p>
+      <p class="hs-act"><a class="btn" href="{{ d.links[0].url }}">Talk to me on LinkedIn</a></p>
     </div>
   </section>
 
   <section class="focus m" aria-labelledby="focus-h">
     <h2 id="focus-h" class="h2">Current focus</h2>
     <div class="focus-grid">
-      {% for p in d.focus %}
+      {% for p in d.focus %}{% assign pp = site.projects | where: "name", p.name | first %}
       <article class="fx">
-        <a class="pic" href="https://github.com/Gjusev/{{ p.name }}">{% if p.video %}<video src="{{ '/assets/work/' | append: p.video | relative_url }}" poster="{{ '/assets/work/' | append: p.img | relative_url }}" muted loop playsinline autoplay preload="metadata" aria-label="{{ p.alt }}"></video>{% else %}<img src="{{ '/assets/work/' | append: p.img | relative_url }}" alt="{{ p.alt }}" width="1400" height="788" loading="lazy">{% endif %}</a>
-        <button class="num" aria-expanded="false" aria-controls="rc-{{ forloop.index }}">{{ p.value }}</button>
+        <a class="pic" href="{{ pp.url | relative_url }}">{% if p.video %}<video src="{{ '/assets/work/' | append: p.video | relative_url }}" poster="{{ '/assets/work/' | append: p.img | relative_url }}" muted loop playsinline preload="none" data-inview aria-label="{{ p.alt }}"></video>{% else %}<img src="{{ '/assets/work/' | append: p.img | relative_url }}" alt="{{ p.alt }}" width="1400" height="788" loading="lazy">{% endif %}</a>
+        <button class="num" aria-expanded="false" aria-controls="rc-{{ forloop.index }}" data-count="{{ p.value }}">{{ p.value }}</button>
         <p class="unit">{{ p.unit }}</p>
         <p class="receipt" id="rc-{{ forloop.index }}">{{ p.receipt }}</p>
-        <h3><a href="https://github.com/Gjusev/{{ p.name }}">{{ p.name }}</a></h3>
+        <h3><a href="{{ pp.url | relative_url }}">{{ p.name }}</a></h3>
         <p>{{ p.desc }}</p>
         {% if p.links %}<p class="links">{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</p>{% endif %}
       </article>
@@ -48,9 +85,26 @@ layout: default
     </div>
   </section>
 
+  <section class="how m" aria-labelledby="how-h">
+    <div class="how-head">
+      <h2 id="how-h" class="h2">How I work</h2>
+      <p class="lede">The same loop runs through every project: real data in, a decision that knows how sure it is, and a receipt for every number that comes out.</p>
+    </div>
+    <div class="flow-wrap">
+    <ol class="flow" data-flow>
+      <li class="node"><b>Real data</b><span>German train delays, day-ahead prices, phone-channel speech, real invoices.</span><a href="{{ '/projects/forecast-arena/' | relative_url }}">forecast-arena</a></li>
+      <li class="node"><b>Model or agent</b><span>Small local decision models, foundation models, tool-using agents.</span><a href="{{ '/projects/MK-SH-V/' | relative_url }}">MK-SH-V</a></li>
+      <li class="node gate"><b>Calibrated gate</b><span class="outs"><i class="act">act</i><i class="ask">ask a person</i><i class="ref">refuse</i></span><a href="{{ '/projects/gate-calibrated/' | relative_url }}">gate-calibrated</a></li>
+      <li class="node"><b>Receipt</b><span>Dataset, seed and n next to every number, in CI.</span><a href="{{ '/projects/voice-evals/' | relative_url }}">voice-evals</a></li>
+      <li class="node dark"><b>Published</b><span>Wins and failures side by side, code included.</span><a href="#projects">All {{ total }} projects</a></li>
+    </ol>
+    <span class="pulse" aria-hidden="true"></span>
+    </div>
+  </section>
+
   <section id="projects" class="projects m" aria-labelledby="proj-h">
     <h2 id="proj-h" class="h2">All projects</h2>
-    <p class="sub">{{ total }} open repositories, grouped by what they are for.</p>
+    <p class="sub">{{ total }} open repositories, grouped by what they are for. {{ site.projects.size }} have their own page with demo, diagram and results.</p>
 
     <div class="group" id="new-group" hidden>
       <div class="gh"><h3>New on GitHub</h3><p>Pushed since this page was last edited.</p></div>
@@ -61,9 +115,9 @@ layout: default
     <div class="group">
       <div class="gh"><h3>{{ g.title }}</h3><p>{{ g.note }}</p></div>
       <ul class="rows">
-        {% for p in g.items %}
-        <li data-repo="{{ p.name }}">
-          <a class="name" href="https://github.com/Gjusev/{{ p.name }}">{{ p.name }}</a>
+        {% for p in g.items %}{% assign pp = site.projects | where: "name", p.name | first %}
+        <li data-repo="{{ p.name }}"{% if pp.image %} data-thumb="{{ pp.image | relative_url }}"{% endif %}>
+          <a class="name" href="{% if pp %}{{ pp.url | relative_url }}{% else %}https://github.com/Gjusev/{{ p.name }}{% endif %}">{{ p.name }}{% unless pp %} <span aria-hidden="true">↗</span>{% endunless %}</a>
           <span class="desc">{{ p.desc }}</span>
           <span class="meta">{% if p.metric %}<b>{{ p.metric }}</b>{% endif %}{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</span>
         </li>
@@ -94,3 +148,7 @@ layout: default
   <p class="crop" aria-hidden="true">Youssef</p>
   </div>
 </footer>
+
+<nav class="picker" aria-label="Hero variants" hidden>
+  <span>Hero</span><button data-pick="window">Window</button><button data-pick="ring">Ring</button><button data-pick="reel">Reel</button>
+</nav>

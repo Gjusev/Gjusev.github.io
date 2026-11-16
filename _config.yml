@@ -6,7 +6,13 @@ repository: Gjusev/Gjusev.github.io
 lang: en
 permalink: /writing/:year/:title/
 plugins: [jekyll-feed, jekyll-seo-tag]
+collections:
+  projects:
+    output: true
+    permalink: /projects/:name/
 defaults:
+  - scope: {path: "", type: projects}
+    values: {layout: project}
   - scope: {path: "", type: posts}
     values: {layout: post}
 exclude: [README.md, Gemfile, node_modules, .taste-skill, scripts, design-picker.html]

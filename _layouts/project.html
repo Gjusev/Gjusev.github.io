@@ -1,0 +1,70 @@
+---
+layout: default
+---
+{% assign d = site.data.projects %}
+{% assign info = nil %}{% assign group = nil %}
+{% for g in d.groups %}{% for it in g.items %}{% if it.name == page.name %}{% assign info = it %}{% assign group = g %}{% endif %}{% endfor %}{% endfor %}
+{% assign focus = d.focus | where: "name", page.name | first %}
+{% assign summary = page.description %}{% if summary == "" %}{% assign summary = info.desc %}{% endif %}
+{% assign all = site.projects | sort: "pushed" | reverse %}
+{% for p in all %}{% if p.name == page.name %}{% assign i = forloop.index0 %}{% endif %}{% endfor %}
+{% assign ni = i | plus: 1 %}{% if ni >= all.size %}{% assign ni = 0 %}{% endif %}
+{% assign nxt = all[ni] %}
+
+<header class="bar m">
+  <a class="wm" href="{{ '/' | relative_url }}">Youssef</a>
+  <nav aria-label="Main">
+    <a href="{{ '/#projects' | relative_url }}">Projects</a>
+    <a href="{{ '/#writing' | relative_url }}">Writing</a>
+    <a href="{{ d.links[0].url }}">LinkedIn</a>
+  </nav>
+</header>
+
+<main id="main-content" class="proj">
+  <section class="ph m">
+    <div class="ph-text">
+      <h1>{{ page.name }}</h1>
+      <p class="lede">{{ summary }}</p>
+      <p class="actions">
+        <a class="btn" href="https://github.com/Gjusev/{{ page.name }}">Code on GitHub</a>
+        {% if page.homepage %}<a href="{{ page.homepage }}">{{ page.homepage | remove: "https://" | remove: "www." | split: "/" | first }}</a>{% endif %}
+        {% for l in info.links %}{% unless l[1] == page.homepage %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endunless %}{% endfor %}
+        {% for l in focus.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}
+      </p>
+    </div>
+    <dl class="facts">
+      {% if focus %}<div class="fact big"><dt>{{ focus.unit }}</dt><dd>{{ focus.value }}</dd><p class="rc">{{ focus.receipt }}</p></div>
+      {% elsif info.metric %}<div class="fact big"><dt>Measured</dt><dd>{{ info.metric }}</dd></div>{% endif %}
+      {% if page.language %}<div class="fact"><dt>Language</dt><dd>{{ page.language }}</dd></div>{% endif %}
+      {% if page.license and page.license != "NOASSERTION" %}<div class="fact"><dt>Licence</dt><dd>{{ page.license }}</dd></div>{% endif %}
+      {% if group %}<div class="fact"><dt>Group</dt><dd><a href="{{ '/#projects' | relative_url }}">{{ group.title }}</a></dd></div>{% endif %}
+      <div class="fact"><dt>Last push</dt><dd>{{ page.pushed | date: "%-d %b %Y" }}</dd></div>
+      {% if page.stars > 0 %}<div class="fact"><dt>Stars</dt><dd>{{ page.stars }}</dd></div>{% endif %}
+    </dl>
+  </section>
+
+  <figure class="ph-media m">
+    {% if page.video %}
+    <video src="{{ page.video | relative_url }}" poster="{{ page.image | relative_url }}" muted loop playsinline preload="none" data-inview aria-label="{{ page.name }} demo"></video>
+    {% elsif page.image %}
+    <img src="{{ page.image | relative_url }}" alt="{{ page.name }}: {{ summary | escape }}"{% if page.image_size %} width="{{ page.image_size[0] }}" height="{{ page.image_size[1] }}"{% endif %}>
+    {% endif %}
+  </figure>
+
+  <div class="pb m">
+    <article class="prose">{{ content }}</article>
+    <aside class="figs">
+      {% if page.diagram %}<figure><img src="{{ page.diagram | relative_url }}" alt="Diagram from the {{ page.name }} repository" loading="lazy"><figcaption>How it works, from the repository.</figcaption></figure>{% endif %}
+      {% for f in page.figures %}<figure><img src="{{ f | relative_url }}" alt="Figure from the {{ page.name }} repository" loading="lazy"></figure>{% endfor %}
+      {% if page.video and page.image and page.image contains "still-" %}<figure><img src="{{ page.image | relative_url }}" alt="{{ page.name }} screenshot" loading="lazy"></figure>{% endif %}
+      {% if page.topics.size > 0 %}<p class="topics">{% for t in page.topics %}<span>{{ t }}</span>{% endfor %}</p>{% endif %}
+    </aside>
+  </div>
+
+  <a class="next m" href="{{ nxt.url | relative_url }}">
+    <span class="next-name">{{ nxt.name }} <span aria-hidden="true">→</span></span>
+    <span class="sub">Next project · {{ nxt.description | truncate: 90 }}</span>
+  </a>
+</main>
+
+<footer class="end"><div class="m"><p class="crop" aria-hidden="true">Youssef</p></div></footer>
