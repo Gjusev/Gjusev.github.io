@@ -14,8 +14,7 @@
   addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
   addEventListener("resize", frame);
   if (!reduce && window.Lenis) {
-    const lenis = new Lenis({ lerp: .11, wheelMultiplier: 1, anchors: true, autoRaf: true });
-    window.__lenis = lenis;
+    new Lenis({ lerp: .11, wheelMultiplier: 1, anchors: true, autoRaf: true });
   }
   const ready = () => requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add("ready")));
   if (reduce || !document.fonts) ready(); else Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1200))]).then(ready);
@@ -49,7 +48,7 @@
   // Videos only play while on screen (and never under reduced motion).
   const vio = new IntersectionObserver(es => es.forEach(e => {
     const v = e.target;
-    if (e.isIntersecting && !reduce) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); } else v.pause();
+    if (e.isIntersecting) { if (v.preload === "none") v.preload = "auto"; v.play().catch(() => {}); } else v.pause();
   }), { threshold: .25 });
   $$("video[data-inview]").forEach(v => vio.observe(v));
 
@@ -143,7 +142,8 @@
         if (!raf) raf = requestAnimationFrame(lens);
       });
       head.addEventListener("pointerleave", () => { inside = false; if (!raf) raf = requestAnimationFrame(lens); });
-      addEventListener("resize", () => { if (lensReady) sample(); });
+      let rz = 0;
+      addEventListener("resize", () => { clearTimeout(rz); rz = setTimeout(() => { if (lensReady) sample(); }, 150); });
     }
   }
 
@@ -157,7 +157,7 @@
       if (!e.isIntersecting) return; cio.unobserve(e.target);
       const el = e.target, txt = el.dataset.count, m = txt.match(/^([^\d]*)([\d.,]+)(.*)$/);
       if (!m) return;
-      const end = parseFloat(m[2].replace(",", "")), dec = (m[2].split(".")[1] || "").length, t0 = performance.now(), dur = 1400;
+      const end = parseFloat(m[2].replace(/,/g, "")), dec = (m[2].split(".")[1] || "").length, t0 = performance.now(), dur = 1400;
       const tick = t => {
         const k = ease(clamp((t - t0) / dur));
         el.textContent = m[1] + (end * k).toFixed(dec) + m[3];
@@ -211,7 +211,8 @@
     const dz = $(".pd", peek), img = $(".pc", peek);
     img.onload = () => img.classList.add("ready");
     let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
-    const loop = () => { x += (tx - x) * .18; y += (ty - y) * .18; peek.style.transform = `translate3d(${x}px,${y}px,0)`; raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(loop) : 0; };
+    const k = reduce ? 1 : .18;
+    const loop = () => { x += (tx - x) * k; y += (ty - y) * k; peek.style.transform = `translate3d(${x}px,${y}px,0)`; raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(loop) : 0; };
     $$(".rows li[data-thumb]").forEach(li => {
       li.addEventListener("mouseenter", e => { if (li.dataset.ratio) peek.style.setProperty("--ar", li.dataset.ratio); img.classList.remove("ready"); dz.src = li.dataset.dither || ""; img.src = li.dataset.thumb; if (img.complete) img.classList.add("ready"); peek.classList.add("on"); x = tx = e.clientX + 24; y = ty = e.clientY - 90; });
       li.addEventListener("mousemove", e => { tx = e.clientX + 24; ty = e.clientY - 90; if (!raf) raf = requestAnimationFrame(loop); });
@@ -239,7 +240,7 @@
     } catch { return; }
     const fresh = repos.filter(r => !r.f && !r.a && !known.has(r.n.toLowerCase()) && !/^gjusev(\.github\.io)?$/i.test(r.n));
     if (!fresh.length) return;
-    rows.innerHTML = fresh.map(r => `<li><a class="name" href="${esc(r.u)}">${esc(r.n)} <span aria-hidden="true">↗</span></a><span class="desc">${esc(r.d || "")}</span><span class="meta">${r.l ? `<b>${esc(r.l)}</b>` : ""}<span class="new-date">${esc(r.p.slice(0, 10))}</span></span></li>`).join("");
+    rows.innerHTML = fresh.map(r => `<li><a class="name" href="${esc(r.u)}">${esc(r.n)} <span aria-hidden="true">↗</span></a><span class="desc">${esc(r.d || "")}</span><span class="meta">${r.l ? `<b>${esc(r.l)}</b>` : ""}<span class="new-date">${esc((r.p || "").slice(0, 10))}</span></span></li>`).join("");
     rows.closest(".group").hidden = false;
   })();
 })();

@@ -108,11 +108,12 @@ def og_card(name, still):
         return "/assets/og.png"
     dest = OUT_MEDIA / name / "og.jpg"
     im = Image.open(ROOT / still.lstrip("/")).convert("RGB")
-    W, H = 1200, 630
-    k = max(W / im.width, H / im.height)
+    W, H, PAD = 1200, 630, 48
+    k = min((W - 2 * PAD) / im.width, (H - 2 * PAD) / im.height)
     im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
-    l, t = (im.width - W) // 2, (im.height - H) // 2
-    im.crop((l, t, l + W, t + H)).save(dest, quality=84)
+    card = Image.new("RGB", (W, H), (241, 240, 236))
+    card.paste(im, ((W - im.width) // 2, (H - im.height) // 2))
+    card.save(dest, quality=84)
     return "/" + dest.relative_to(ROOT).as_posix()
 
 

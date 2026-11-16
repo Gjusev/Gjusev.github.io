@@ -3,15 +3,22 @@
 Used where a picture resolves from noise to signal (project-row previews, the ring hero).
 Run after sync_projects.py:  python scripts/dither.py
 """
+import os
 from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
 INK, PAPER = (38, 37, 30), (229, 227, 221)  # --ink, --surface
 
-for still in sorted((ROOT / "assets" / "projects").glob("*/still-*.webp")) + sorted((ROOT / "assets" / "projects").glob("*/poster.webp")):
+
+def source(folder):
+    stills = sorted(folder.glob("still-*.webp"))
+    return stills[0] if stills else (folder / "poster.webp" if (folder / "poster.webp").exists() else None)
+
+
+for still in filter(None, map(source, sorted(p for p in (ROOT / "assets" / "projects").iterdir() if p.is_dir()))):
     out = still.parent / "dither.png"
-    if out.exists() and out.stat().st_mtime > still.stat().st_mtime:
+    if out.exists() and out.stat().st_mtime > still.stat().st_mtime and not os.environ.get("FORCE"):
         continue
     im = Image.open(still).convert("L")
     im.thumbnail((400, 400))                      # coarse grain: shown scaled up with pixelated rendering

@@ -252,6 +252,9 @@ a:hover{color:var(--accent)}
 .post th{border-bottom:2px solid var(--ink)}
 
 
+/* touch has no hover: show the next picture in colour */
+@media (hover:none){.next-img .nd{display:none}}
+
 /* hover motion only where a real pointer hovers */
 @media (hover:hover) and (pointer:fine){
   .btn:hover{transform:translateY(-1px)}
@@ -320,4 +323,5 @@ a:hover{color:var(--accent)}
   .btn:hover,.btn:active{transform:none}
   .dock{transform:none;opacity:0;pointer-events:none;transition:opacity .3s var(--ease)}
   .dock.show{opacity:1;pointer-events:auto}
+  .peek{scale:1}
 }
