@@ -67,7 +67,7 @@ layout: default
       <span class="next-name" style="view-transition-name:pt-{{ nxt.name | slugify }}">{{ nxt.name }}</span>
       <span class="next-desc">{{ nxt.summary | default: nxt.description | truncate: 120 }}</span>
     </span>
-    {% if nxt.still %}<span class="next-img" aria-hidden="true"><img src="{{ nxt.still | relative_url }}" alt=""{% if nxt.still_size %} width="{{ nxt.still_size[0] }}" height="{{ nxt.still_size[1] }}"{% endif %} loading="lazy"><img class="nd" src="{{ '/assets/projects/' | append: nxt.name | append: '/dither.png' | relative_url }}" alt="" loading="lazy"></span>{% endif %}
+    {% if nxt.still %}<span class="next-img" aria-hidden="true"><img src="{{ nxt.still | relative_url }}" alt=""{% if nxt.still_size %} width="{{ nxt.still_size[0] }}" height="{{ nxt.still_size[1] }}"{% endif %} loading="lazy"><img class="nd" src="{{ '/assets/projects/' | append: nxt.name | append: '/dither.png' | relative_url }}" alt=""{% if nxt.still_size %} width="{{ nxt.still_size[0] }}" height="{{ nxt.still_size[1] }}"{% endif %} loading="lazy"></span>{% endif %}
   </a>
 </main>
 
