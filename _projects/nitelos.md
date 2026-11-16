@@ -10,8 +10,8 @@ license: "Apache-2.0"
 pushed: "2026-11-13"
 topics: []
 video: null
-still: "/assets/projects/nitelos/still-nitelos-main-poster.webp"
-still_size: [1600, 900]
+still: "/assets/projects/nitelos/still-nitelos-social-card.webp"
+still_size: [1200, 630]
 image: "/assets/projects/nitelos/og.jpg"
 diagram: "/assets/projects/nitelos/diagram-nitelos-workflow-poster.webp"
 diagram_size: [1600, 900]

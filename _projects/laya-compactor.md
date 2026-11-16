@@ -10,8 +10,8 @@ license: "Apache-2.0"
 pushed: "2026-09-30"
 topics: ["context-compaction", "information-retrieval", "langchain", "laya", "llamaindex", "llm"]
 video: "/assets/projects/laya-compactor/demo.mp4"
-still: "/assets/projects/laya-compactor/still-brag-poster.webp"
-still_size: [1600, 900]
+still: "/assets/projects/laya-compactor/still-social-preview.webp"
+still_size: [1280, 640]
 image: "/assets/projects/laya-compactor/og.jpg"
 diagram: "/assets/projects/laya-compactor/diagram-eval-summary.svg"
 diagram_size: null

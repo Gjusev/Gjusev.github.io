@@ -5,8 +5,8 @@
 
 focus:
   - name: forecast-arena
-    img: forecast-chart.webp
-    alt: Bar chart of forecast error per model for the German day-ahead electricity price
+    img: forecast-banner.webp
+    alt: "forecast-arena brand banner: AI forecasting models tested against two real German systems"
     desc: Eight forecasting models tested on German train delays and day-ahead power prices. The losses are published next to the wins.
     value: "19.27"
     unit: lowest price-forecast error (MAE) of the eight
@@ -29,9 +29,9 @@ focus:
     receipt: Measured on the BANKING77 test set, seed 13, 200 tickets.
     links: {Try the app: "https://laya-triage-8spuhg8fa5qjy8hiteomux.streamlit.app/", Model: "https://huggingface.co/Gjusev/laya-triage-banking77"}
   - name: voice-evals
-    img: voice-evals-demo.webp
+    img: voice-evals-social.webp
     video: voice-evals-demo.mp4
-    alt: "voice-evals demo: a replayed call scored for transcription, latency and interruptions"
+    alt: "voice-evals social preview: replayed calls scored for transcription, latency and interruptions"
     desc: Tests a voice agent the way callers use it. It replays recorded calls, interrupts the agent live, and fails the build when quality slips.
     value: "4"
     unit: quality gates on every release

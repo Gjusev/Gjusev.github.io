@@ -10,8 +10,8 @@ license: "Apache-2.0"
 pushed: "2026-10-04"
 topics: ["benchmark", "evaluation", "latency", "llm", "pytest", "stt"]
 video: "/assets/projects/voice-evals/demo.mp4"
-still: "/assets/projects/voice-evals/still-voice-evals-demo-poster.webp"
-still_size: [1280, 720]
+still: "/assets/projects/voice-evals/still-github-social-preview.webp"
+still_size: [1280, 640]
 image: "/assets/projects/voice-evals/og.jpg"
 diagram: "/assets/projects/voice-evals/diagram-evaluation-flow.svg"
 diagram_size: null

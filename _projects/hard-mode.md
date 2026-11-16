@@ -10,8 +10,8 @@ license: "MIT"
 pushed: "2026-10-09"
 topics: ["accessibility", "agent-skills", "claude-code", "codex", "playwright", "testing"]
 video: null
-still: "/assets/projects/hard-mode/still-compare.webp"
-still_size: [1600, 1500]
+still: "/assets/projects/hard-mode/still-social-preview.webp"
+still_size: [1280, 640]
 image: "/assets/projects/hard-mode/og.jpg"
 diagram: null
 diagram_size: null

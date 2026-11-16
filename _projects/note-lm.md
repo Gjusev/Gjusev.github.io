@@ -10,8 +10,8 @@ license: "MIT"
 pushed: "2026-10-01"
 topics: []
 video: "/assets/projects/note-lm/demo.mp4"
-still: "/assets/projects/note-lm/poster.webp"
-still_size: [960, 540]
+still: "/assets/projects/note-lm/still-social-preview-1280x640.webp"
+still_size: [1280, 640]
 image: "/assets/projects/note-lm/og.jpg"
 diagram: null
 diagram_size: null

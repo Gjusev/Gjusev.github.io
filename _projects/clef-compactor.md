@@ -7,11 +7,11 @@ language: "Python"
 stars: 2
 homepage: null
 license: "Apache-2.0"
-pushed: "2026-10-01"
+pushed: "2026-11-16"
 topics: []
 video: "/assets/projects/clef-compactor/demo.mp4"
-still: "/assets/projects/clef-compactor/still-readme-hero-v2.webp"
-still_size: [1600, 900]
+still: "/assets/projects/clef-compactor/still-social-preview-v2.webp"
+still_size: [1280, 640]
 image: "/assets/projects/clef-compactor/og.jpg"
 diagram: null
 diagram_size: null

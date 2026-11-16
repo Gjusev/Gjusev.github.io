@@ -10,8 +10,8 @@ license: "Apache-2.0"
 pushed: "2026-10-31"
 topics: ["abstention", "calibration", "decision-model", "document-understanding", "gui-agents", "selective-prediction"]
 video: "/assets/projects/MK-SH-V/demo.mp4"
-still: "/assets/projects/MK-SH-V/poster.webp"
-still_size: [960, 540]
+still: "/assets/projects/MK-SH-V/still-hf-cover.webp"
+still_size: [1568, 392]
 image: "/assets/projects/MK-SH-V/og.jpg"
 diagram: null
 diagram_size: null

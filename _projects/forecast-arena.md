@@ -10,8 +10,8 @@ license: "MIT"
 pushed: "2026-11-16"
 topics: ["benchmark", "chronos", "electricity-prices", "forecasting", "foundation-models", "time-series"]
 video: "/assets/projects/forecast-arena/demo.mp4"
-still: "/assets/projects/forecast-arena/still-actual_vs_pred_day_ahead_price_de-lu_2026-10-25.webp"
-still_size: [1600, 493]
+still: "/assets/projects/forecast-arena/still-banner.webp"
+still_size: [1600, 800]
 image: "/assets/projects/forecast-arena/og.jpg"
 diagram: "/assets/projects/forecast-arena/diagram-accuracy_day_ahead_price_h1.webp"
 diagram_size: [1600, 844]

@@ -10,8 +10,8 @@ license: "Apache-2.0"
 pushed: "2026-11-09"
 topics: []
 video: "/assets/projects/folio/demo.mp4"
-still: "/assets/projects/folio/still-readme-promo.webp"
-still_size: [720, 406]
+still: "/assets/projects/folio/still-social-preview.webp"
+still_size: [1280, 640]
 image: "/assets/projects/folio/og.jpg"
 diagram: null
 diagram_size: null
