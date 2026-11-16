@@ -8,4 +8,4 @@ github_user: Gjusev
 defaults:
   - scope: {path: "", type: posts}
     values: {layout: post}
-exclude: [README.md, Gemfile, node_modules]
+exclude: [README.md, Gemfile, node_modules, .taste-skill]
