@@ -163,20 +163,33 @@
       requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add("in")));
     });
 
-    // The closing name settles as the footer comes up.
+    // The closing name is cut into stripes that slide into register as the page ends (after Space Type Generator).
     const crop = $(".crop");
-    if (crop) onScroll.push(() => { const r = crop.getBoundingClientRect(); crop.style.setProperty("--cp", clamp((r.top - innerHeight * .55) / (innerHeight * .45)).toFixed(3)); });
+    if (crop) {
+      const N = 7, word = crop.textContent.trim();
+      crop.classList.add("striped");
+      const bands = Array.from({ length: N }, (_, i) => {
+        const s = document.createElement("span"); s.className = "st"; s.textContent = word;
+        s.style.setProperty("--a", (i / N * 100) + "%"); s.style.setProperty("--b", Math.max(0, 100 - (i + 1) / N * 100 - .8) + "%"); // a hair of overlap hides the seams
+        crop.append(s); return s;
+      });
+      onScroll.push(() => {
+        const left = document.documentElement.scrollHeight - innerHeight - scrollY, k = clamp(left / (innerHeight * .7));
+        bands.forEach((b, i) => b.style.setProperty("--x", ((i % 2 ? 1 : -1) * (1 + i * .35) * k * 9).toFixed(2) + "vw"));
+      });
+    }
   }
 
   /* ---------- project rows show a preview that follows the pointer ---------- */
   if (fine) {
-    const peek = document.createElement("div"); peek.className = "peek"; peek.innerHTML = "<img alt=''>";
+    const peek = document.createElement("div"); peek.className = "peek"; peek.innerHTML = "<img class='pd' alt=''><img class='pc' alt=''>";
     document.body.append(peek);
-    const img = $("img", peek);
+    const dz = $(".pd", peek), img = $(".pc", peek);
+    img.onload = () => img.classList.add("ready");
     let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
     const loop = () => { x += (tx - x) * .18; y += (ty - y) * .18; peek.style.setProperty("--x", x + "px"); peek.style.setProperty("--y", y + "px"); raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(loop) : 0; };
     $$(".rows li[data-thumb]").forEach(li => {
-      li.addEventListener("mouseenter", e => { img.src = li.dataset.thumb; peek.classList.add("on"); x = tx = e.clientX + 24; y = ty = e.clientY - 90; });
+      li.addEventListener("mouseenter", e => { img.classList.remove("ready"); dz.src = li.dataset.dither || ""; img.src = li.dataset.thumb; if (img.complete) img.classList.add("ready"); peek.classList.add("on"); x = tx = e.clientX + 24; y = ty = e.clientY - 90; });
       li.addEventListener("mousemove", e => { tx = e.clientX + 24; ty = e.clientY - 90; if (!raf) raf = requestAnimationFrame(loop); });
       li.addEventListener("mouseleave", () => peek.classList.remove("on"));
     });

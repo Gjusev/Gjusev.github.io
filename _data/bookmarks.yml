@@ -1,0 +1,23 @@
+# Tools and references I keep coming back to. "used" says where this site uses one.
+- title: Inspiration
+  note: Galleries I look at before I design anything.
+  items:
+    - {name: Landingfolio, url: "https://www.landingfolio.com/", desc: "Landing page designs, templates and components, sorted by section type."}
+    - {name: Land-book, url: "https://land-book.com/", desc: "A curated gallery of landing pages and websites, filterable by style and industry."}
+    - {name: Layers, url: "https://layers.to/explore", desc: "A community where designers share work in progress and finished pieces."}
+    - {name: Mobbin, url: "https://mobbin.com/", desc: "A library of real app screens and flows, for checking how others solved a pattern."}
+    - {name: CTA Gallery, url: "https://www.cta.gallery/", desc: "Calls to action collected by type and industry: buttons, forms, newsletters, pricing.", used: "The closing section of every page."}
+    - {name: onur.dev bookmarks, url: "https://onur.dev/bookmarks/apps-and-tools", desc: "Onur Şuyalçınkaya's long, well-kept list of apps and tools.", used: "The idea for this page."}
+- title: Tools
+  note: Things that make one part of a design faster or better.
+  items:
+    - {name: ShaderGradient, url: "https://shadergradient.co/", desc: "Animated 3D gradients you tune in the browser and export as code, video or GIF.", used: "The moving field behind this footer, rebuilt as a small WebGL shader."}
+    - {name: Bitmap, url: "https://bitmap.designfamilymarket.com/", desc: "Bitmap and dithering effects for images, in the browser.", used: "The dithered previews that resolve to colour on the project list."}
+    - {name: Space Type Generator, url: "https://spacetypegenerator.com/stripes", desc: "Kinetic type experiments by Kiel Mutschelknaus. Stripes slices a word into moving bands.", used: "The name at the foot of every page."}
+    - {name: Khroma, url: "https://www.khroma.co/", desc: "Learns the colours you like and generates palettes from them."}
+    - {name: Flair, url: "https://flair.ai/", desc: "AI product photography: place a product into generated scenes."}
+- title: Principles
+  note: The rules I check a page against.
+  items:
+    - {name: Laws of UX, url: "https://lawsofux.com/es/", desc: "Thirty psychology principles for interfaces, from Fitts's law to the peak-end rule.", used: "Grouped project index, one primary action per screen, a strong last section."}
+    - {name: Humane by Design, url: "https://humanebydesign.com/", desc: "Principles for products that respect attention: empowering, finite and inclusive.", used: "No trackers, animations that end, a page with a real end."}

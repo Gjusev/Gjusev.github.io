@@ -1,0 +1,31 @@
+---
+layout: default
+title: Bookmarks
+description: Design and UX references Youssef keeps coming back to, and where this site uses them.
+permalink: /bookmarks/
+---
+<header class="bar m">
+  <a class="wm" href="{{ '/' | relative_url }}">Youssef</a>
+  <nav aria-label="Main"><a href="{{ '/#projects' | relative_url }}">Projects</a><a href="{{ '/#writing' | relative_url }}">Writing</a><a href="{{ '/bookmarks/' | relative_url }}" aria-current="page">Bookmarks</a></nav>
+</header>
+<main id="main-content" class="bm m">
+  <div class="bm-head">
+    <h1>Bookmarks</h1>
+    <p class="lede">References I keep open while I design. Where this site borrows from one, it says so.</p>
+  </div>
+  {% for g in site.data.bookmarks %}
+  <section class="group" aria-labelledby="bm-{{ forloop.index }}">
+    <div class="gh"><h2 id="bm-{{ forloop.index }}" class="gh-t">{{ g.title }}</h2><p>{{ g.note }}</p></div>
+    <ul class="rows">
+      {% for b in g.items %}
+      <li>
+        <a class="name" href="{{ b.url }}">{{ b.name }} <span aria-hidden="true">↗</span></a>
+        <span class="desc">{{ b.desc }}{% if b.used %}<em class="used">Used here: {{ b.used }}</em>{% endif %}</span>
+        <span class="meta">{{ b.url | remove: "https://" | remove: "www." | split: "/" | first }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  {% endfor %}
+</main>
+{% include footer.html %}

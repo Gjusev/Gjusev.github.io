@@ -1,0 +1,20 @@
+{% assign links = site.data.projects.links %}
+<footer class="end">
+  <canvas class="grad" aria-hidden="true"></canvas>
+  <div class="m end-in">
+    <div class="connect">
+      <div>
+        <h2 class="h2 ask">Building something that has to be right?</h2>
+        <p class="lede">Send me what you are building and where it breaks today. LinkedIn is the fastest way to reach me.</p>
+        <p class="actions"><a class="btn" href="{{ links[0].url }}">Message me on LinkedIn</a></p>
+      </div>
+      <ul>
+        {% for l in links offset: 1 %}<li><a href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}
+        <li><a href="{{ '/bookmarks/' | relative_url }}">Bookmarks</a></li>
+        <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+      </ul>
+    </div>
+    <p class="colophon">No cookies and no trackers. Fonts, pictures and video load from this site. Set in Fraunces and Albert Sans; the moving field follows a ShaderGradient preset.</p>
+    <p class="crop" aria-hidden="true">Youssef</p>
+  </div>
+</footer>

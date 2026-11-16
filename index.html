@@ -42,7 +42,7 @@ layout: default
   <section class="hero hr m" data-variant="ring" aria-labelledby="h1-ring">
     <div class="hr-ring">
       {% for pp in withmedia limit: 22 %}
-      <a class="hr-f" href="{{ pp.url | relative_url }}" data-name="{{ pp.name }}" data-desc="{{ pp.summary | default: pp.name | escape }}"><img src="{{ pp.still | relative_url }}" alt="{{ pp.name }}"{% if pp.still_size %} width="{{ pp.still_size[0] }}" height="{{ pp.still_size[1] }}"{% endif %} loading="lazy"></a>
+      <a class="hr-f" href="{{ pp.url | relative_url }}" data-name="{{ pp.name }}" data-desc="{{ pp.summary | default: pp.name | escape }}"><img src="{{ pp.still | relative_url }}" alt="{{ pp.name }}"{% if pp.still_size %} width="{{ pp.still_size[0] }}" height="{{ pp.still_size[1] }}"{% endif %} loading="lazy"><img class="dz" src="{{ '/assets/projects/' | append: pp.name | append: '/dither.png' | relative_url }}" alt=""{% if pp.still_size %} width="{{ pp.still_size[0] }}" height="{{ pp.still_size[1] }}"{% endif %} loading="lazy"></a>
       {% endfor %}
       <div class="hr-core">
         <p id="h1-ring" class="hr-title">Youssef<br>measures AI</p>
@@ -106,17 +106,19 @@ layout: default
     <h2 id="proj-h" class="h2">All projects</h2>
     <p class="sub">{{ total }} open repositories, grouped by what they are for. {{ site.projects.size }} have their own page with a demo, a diagram and the results.</p>
 
+    <nav class="gidx" aria-label="Project groups">{% for g in d.groups %}<a href="#g-{{ forloop.index }}">{{ g.title }} <span>{{ g.items.size }}</span></a>{% endfor %}</nav>
+
     <div class="group" id="new-group" hidden>
       <div class="gh"><h3>New on GitHub</h3><p>Pushed since this page was last edited.</p></div>
       <ul class="rows" id="new-rows"></ul>
     </div>
 
     {% for g in d.groups %}
-    <div class="group">
+    <div class="group" id="g-{{ forloop.index }}">
       <div class="gh"><h3>{{ g.title }}</h3><p>{{ g.note }}</p></div>
       <ul class="rows">
         {% for p in g.items %}{% assign pp = site.projects | where: "name", p.name | first %}
-        <li data-repo="{{ p.name }}"{% if pp.still %} data-thumb="{{ pp.still | relative_url }}"{% endif %}>
+        <li data-repo="{{ p.name }}"{% if pp.still %} data-thumb="{{ pp.still | relative_url }}" data-dither="{{ '/assets/projects/' | append: pp.name | append: '/dither.png' | relative_url }}"{% endif %}>
           <a class="name" href="{% if pp %}{{ pp.url | relative_url }}{% else %}https://github.com/Gjusev/{{ p.name }}{% endif %}">{{ p.name }}{% unless pp %} <span aria-hidden="true">↗</span>{% endunless %}</a>
           <span class="desc">{{ p.desc }}</span>
           <span class="meta">{% if p.metric %}<b>{{ p.metric }}</b>{% endif %}{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</span>
@@ -139,15 +141,7 @@ layout: default
   </section>
 </main>
 
-<footer class="end">
-  <div class="m">
-  <div class="connect">
-    <div><h2 class="h2 ask">Building something that has to be right?</h2><p class="lede">Send me what you are building and where it breaks today. LinkedIn is the fastest way to reach me.</p></div>
-    <ul>{% for l in d.links %}<li><a href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}<li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li></ul>
-  </div>
-  <p class="crop" aria-hidden="true">Youssef</p>
-  </div>
-</footer>
+{% include footer.html %}
 
 <nav class="picker" aria-label="Hero variants" hidden>
   <span>Hero</span><button data-pick="window">Window</button><button data-pick="ring">Ring</button><button data-pick="reel">Reel</button>
