@@ -8,7 +8,7 @@ Personal site. Jekyll on GitHub Pages: push to `main` and it is live, no build s
 - **Project pages:** `python scripts/sync_projects.py [repo ...]` pulls demo video, still, diagram, intro, results table and install snippet from each repo into `_projects/` and `assets/projects/`. Pick media per repo in `PICKS` at the top of the script.
 - **Dithered previews:** after a sync, run `python scripts/dither.py`.
 - **Bookmarks:** `_data/bookmarks.yml`.
-- **Hero:** three variants (`?hero=window`, `?hero=ring`, `?hero=reel`); the choice is remembered in the browser. Default is set in `_layouts/default.html`.
+- **Hero:** the title resolves from 1-bit noise on load; on desktop a lens over it shows the raw signal (assets/site.js, hero block).
 - **Links:** `_data/projects.yml` → `links`.
 - **Local preview:** `sh scripts/build.sh` (needs Docker; uses the same image GitHub Pages builds with), then serve `_site/`.
 

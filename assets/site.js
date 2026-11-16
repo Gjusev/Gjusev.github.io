@@ -45,8 +45,6 @@
     }
   }
 
-  const progress = el => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight)); };
-  const wide = () => innerWidth > 1000;
 
   // Videos only play while on screen (and never under reduced motion).
   const vio = new IntersectionObserver(es => es.forEach(e => {
@@ -55,98 +53,97 @@
   }), { threshold: .25 });
   $$("video[data-inview]").forEach(v => vio.observe(v));
 
-  /* ---------- hero picker (temporary, while choosing) ---------- */
-  const picker = $(".picker");
-  if (picker && (new URLSearchParams(location.search).has("hero") || localStorage.getItem("hero"))) {
-    picker.hidden = false;
-    const mark = () => $$("button", picker).forEach(b => b.classList.toggle("on", b.dataset.pick === root.dataset.hero));
-    $$("button", picker).forEach(b => b.onclick = () => { root.dataset.hero = b.dataset.pick; localStorage.setItem("hero", b.dataset.pick); mark(); scrollTo(0, 0); frame(); });
-    mark();
-  }
+  /* ---------- hero · the title resolves from 1-bit noise, and a lens shows the raw signal again ---------- */
+  const hx = $(".hx");
+  if (hx && !reduce) {
+    const head = $(".hx-head", hx), h1 = $(".hx-t", hx), cv = $(".hx-c", hx), ctx = cv.getContext("2d");
+    const CELL = 3;                                     // one dither dot = 3 css px
+    const B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(v => (v + .5) / 16); // 4x4 Bayer
+    let W = 0, H = 0, alpha = null, img = null, ink = [38, 37, 30];
 
-  /* ---------- hero 1 · window that opens to the edges ---------- */
-  const hw = $(".hw");
-  if (hw) {
-    const media = $(".hw-media", hw), vids = $$("video", media), cap = $("[data-cap]", hw);
-    let cur = 0;
-    const show = i => {
-      vids.forEach((v, j) => { v.classList.toggle("on", j === i); if (j !== i) v.pause(); });
-      const v = vids[i];
-      $(".hw-cap-name", cap).textContent = v.dataset.name;
-      $(".hw-cap-desc", cap).textContent = cap.classList.contains("full") ? v.dataset.desc : "Now playing";
-      cap.href = v.dataset.url;
-      if (!reduce) { v.currentTime = 0; v.play().catch(() => {}); }
-      const n = vids[(i + 1) % vids.length]; if (n.preload === "none") n.preload = "auto";
-    };
-    vids.forEach((v, i) => v.addEventListener("ended", () => { if (i === cur) { cur = (cur + 1) % vids.length; show(cur); } }));
-    if (vids.length) show(0);
-    if (!reduce) {
-      hw.classList.add("live");
-      let full = false;
-      onScroll.push(() => {
-        if (root.dataset.hero && root.dataset.hero !== "window") return;
-        if (!wide()) { media.style.removeProperty("--s"); hw.style.removeProperty("--o"); return; }
-        const p = progress(hw), s0 = parseFloat(getComputedStyle(hw).getPropertyValue("--s0")) || .58, s = s0 + (1 - s0) * ease(clamp(p / .7));
-        media.style.setProperty("--s", s.toFixed(4));
-        hw.style.setProperty("--o", clamp(1 - p / .3).toFixed(3));
-        const f = p > .72;
-        if (f !== full) { full = f; cap.classList.toggle("full", f); show(cur); }
-      });
-    }
-  }
-
-  /* ---------- hero 2 · ring of frames ---------- */
-  const ring = $(".hr-ring");
-  if (ring) {
-    const fr = $$(".hr-f", ring), lede = $(".hr-lede", ring), def = lede.innerHTML;
-    const place = () => {
-      const w = ring.clientWidth, h = ring.clientHeight, phone = w < 700;
-      const list = phone ? fr.slice(0, 12) : fr;
-      fr.forEach(f => f.style.display = list.includes(f) ? "" : "none");
-      list.forEach((f, i) => {
-        let x, y, a;
-        if (phone) {
-          // two arcs: six frames above the text, six below
-          const top = i < list.length / 2, k = top ? i : i - list.length / 2, n = list.length / 2;
-          a = top ? Math.PI + (k + .5) / n * Math.PI : (k + .5) / n * Math.PI;
-          const cy = top ? w * .66 : h - w * .5;
-          x = (w / 2 + w * .58 * Math.cos(a)) / w; y = (cy + w * .36 * Math.sin(a)) / h;
-        } else {
-          a = (i / list.length) * Math.PI * 2 - Math.PI / 2;
-          x = .5 + .42 * Math.cos(a); y = .5 + .38 * Math.sin(a);
+    // Draw the real title, line by line, into a small offscreen bitmap: one pixel per dither cell.
+    const sample = () => {
+      const r = head.getBoundingClientRect();
+      W = Math.ceil(r.width / CELL); H = Math.ceil(r.height / CELL);
+      cv.width = W; cv.height = H; cv.style.width = W * CELL + "px"; cv.style.height = H * CELL + "px";
+      const off = document.createElement("canvas"); off.width = W; off.height = H;
+      const o = off.getContext("2d"), cs = getComputedStyle(h1);
+      o.font = `${cs.fontWeight} ${parseFloat(cs.fontSize) / CELL}px ${cs.fontFamily}`;
+      o.textBaseline = "alphabetic";
+      // place every glyph where the browser laid it out, so tracking and kerning match the real title
+      const range = document.createRange();
+      $$(".hx-l", h1).forEach(l => {
+        const node = l.firstChild, text = node.textContent;
+        for (let i = 0; i < text.length; i++) {
+          if (text[i] === " ") continue;
+          range.setStart(node, i); range.setEnd(node, i + 1);
+          const cr = range.getBoundingClientRect(), m = o.measureText(text[i]);
+          const asc = m.fontBoundingBoxAscent ?? parseFloat(cs.fontSize) / CELL * .8, desc = m.fontBoundingBoxDescent ?? 0;
+          o.fillText(text[i], (cr.left - r.left) / CELL, (cr.top - r.top) / CELL + (cr.height / CELL - (asc + desc)) / 2 + asc);
         }
-        const depth = (Math.sin(a) + 1) / 2; // 0 at the top, 1 at the bottom
-        f.style.left = (x * 100) + "%"; f.style.top = (y * 100) + "%";
-        f.style.setProperty("--w", ((phone ? 70 : 104) + depth * (phone ? 24 : 54)) + "px");
-        f.style.setProperty("--rot", (Math.cos(a) * -9).toFixed(1) + "deg");
-        f.style.setProperty("--i", i);
       });
+      const d = o.getImageData(0, 0, W, H).data;
+      alpha = new Float32Array(W * H);
+      for (let i = 0; i < W * H; i++) alpha[i] = d[i * 4 + 3] / 255;
+      img = ctx.createImageData(W, H);
+      const c = cs.color.match(/\d+/g); if (c) ink = c.slice(0, 3).map(Number);
     };
-    place(); addEventListener("resize", place);
-    requestAnimationFrame(() => requestAnimationFrame(() => ring.classList.add("ready")));
-    fr.forEach(f => {
-      const on = () => { ring.classList.add("focus"); fr.forEach(x => x.classList.toggle("cur", x === f)); lede.innerHTML = `<b>${esc(f.dataset.name)}</b>${esc(f.dataset.desc)}`; };
-      const off = () => { ring.classList.remove("focus"); lede.innerHTML = def; };
-      f.addEventListener("mouseenter", on); f.addEventListener("focus", on);
-      f.addEventListener("mouseleave", off); f.addEventListener("blur", off);
-    });
-  }
 
-  /* ---------- hero 3 · sentence split by a frame ---------- */
-  const hs = $(".hs");
-  if (hs) {
-    const strip = $("[data-strip]", hs), items = $$(".hs-item", strip);
-    let step = 0;
-    const go = i => { step = i; strip.style.transform = `translateY(${-i * 100 / items.length}%)`; };
-    if (!reduce && items.length > 1) {
-      hs.classList.add("live");
-      onScroll.push(() => {
-        if (root.dataset.hero !== "reel") return;
-        if (!wide()) return;
-        const i = Math.min(items.length - 1, Math.floor(progress(hs) * items.length));
-        if (i !== step) go(i);
+    // noise(x, y) in 0..1 says how far a cell is from the clean signal
+    const render = noise => {
+      const px = img.data; let k = 0;
+      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++, k += 4) {
+        const n = noise(x, y), i = y * W + x;
+        if (n < 0) { px[k + 3] = 0; continue; }
+        const v = alpha[i] * (1 - n * .55) + (Math.random() - .5) * n * 1.25;
+        const on = v > B[(x & 3) + ((y & 3) << 2)];
+        px[k] = ink[0]; px[k + 1] = ink[1]; px[k + 2] = ink[2]; px[k + 3] = on ? 255 : 0;
+      }
+      ctx.putImageData(img, 0, 0);
+    };
+
+    // 1 · on load: from noise to type in about 1.6 s, like a model settling on an answer
+    const resolve = () => {
+      sample(); hx.classList.add("dither");
+      const t0 = performance.now(), dur = 1700;
+      const step = now => {
+        const k = clamp((now - t0) / dur), n = Math.pow(1 - k, 2.2);
+        render(() => n);
+        if (k < 1) requestAnimationFrame(step);
+        else setTimeout(() => { hx.classList.remove("dither"); lensReady = true; }, 120);
+      };
+      requestAnimationFrame(step);
+    };
+    let lensReady = false;
+    if (root.classList.contains("ready")) resolve();
+    else new MutationObserver((_, o) => { if (root.classList.contains("ready")) { o.disconnect(); resolve(); } }).observe(root, { attributes: true, attributeFilter: ["class"] });
+
+    // 2 · on desktop: a lens over the title shows it as raw, noisy signal
+    if (fine) {
+      const R = 84 / CELL; let mx = -1e4, my = -1e4, live = 0, raf = 0, inside = false;
+      const lens = () => {
+        raf = 0;
+        if (!lensReady) return;
+        const t = performance.now() / 1000;
+        const grow = clamp(live);
+        render((x, y) => {
+          const d = Math.hypot(x - mx, y - my) / (R * grow + .001);
+          return d > 1 ? -1 : .25 + .45 * (1 - d) + .08 * Math.sin(t * 6 + x * .3);
+        });
+        const r = R * grow * CELL;
+        h1.style.maskImage = h1.style.webkitMaskImage = `radial-gradient(circle ${r}px at ${mx * CELL}px ${my * CELL}px, transparent 98%, #000 100%)`; // taste-skill-ignore: a mask, not a visible gradient
+        live += inside ? .12 : -.12;
+        if (live > 0) raf = requestAnimationFrame(lens);
+        else { live = 0; cv.classList.remove("live"); h1.style.maskImage = h1.style.webkitMaskImage = ""; }
+      };
+      head.addEventListener("pointermove", e => {
+        const r = head.getBoundingClientRect();
+        mx = (e.clientX - r.left) / CELL; my = (e.clientY - r.top) / CELL;
+        if (!inside) { inside = true; live = Math.max(live, .01); cv.classList.add("live"); }
+        if (!raf) raf = requestAnimationFrame(lens);
       });
-      setInterval(() => { if (!wide() && root.dataset.hero === "reel") go((step + 1) % items.length); }, 3200);
+      head.addEventListener("pointerleave", () => { inside = false; if (!raf) raf = requestAnimationFrame(lens); });
+      addEventListener("resize", () => { if (lensReady) sample(); });
     }
   }
 
@@ -190,13 +187,6 @@
     $$(".fx .pic, .ph-media, .figs figure, .next-img").forEach((el, i) => { el.setAttribute("data-clip", ""); els.push(el); });
     requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => io.observe(el))));
 
-    // Headlines rise line by line out of a mask.
-    $$(".hw-title, .hr-title").forEach(h => {
-      const lines = h.innerHTML.split(/<br\s*\/?>/i);
-      h.innerHTML = lines.map((l, i) => `<span class="mask" style="--d:${120 + i * 110}ms"><span>${l}</span></span>`).join("");
-      const go = () => h.classList.add("in");
-      root.classList.contains("ready") ? go() : new MutationObserver((m, o) => { if (root.classList.contains("ready")) { go(); o.disconnect(); } }).observe(root, { attributes: true, attributeFilter: ["class"] });
-    });
 
     // The closing name is cut into stripes that slide into register as the page ends (after Space Type Generator).
     const crop = $(".crop");

@@ -3,8 +3,6 @@ layout: default
 ---
 {% assign d = site.data.projects %}
 {% assign total = 0 %}{% for g in d.groups %}{% assign total = total | plus: g.items.size %}{% endfor %}
-{% assign reel = "forecast-arena,voice-evals,treeseek,zerocall,gate-calibrated,voxentity-eu,trust-but-verify,laya-compactor" | split: "," %}
-{% assign withmedia = site.projects | where_exp: "p", "p.still" %}
 {% capture lede %}AI product engineer and founder of mokka in Siegen, Germany. I build open tools that check whether AI does what it claims, and I publish every result.{% endcapture %}
 
 <header class="bar m over">
@@ -19,53 +17,22 @@ layout: default
 
 <main id="main-content">
 
-  <!-- Hero 1 · a window that opens to the edges: real demo clips, the window grows to full screen on scroll -->
-  <section class="hero hw" data-variant="window" aria-labelledby="h1-window">
-    <div class="hw-stage">
-      <div class="hw-media" data-reel>
-        {% for n in reel %}{% assign pp = site.projects | where: "name", n | first %}{% if pp.video %}
-        <video data-name="{{ pp.name }}" data-url="{{ pp.url | relative_url }}" data-desc="{{ pp.summary | escape }}" src="{{ pp.video | relative_url }}" poster="{{ pp.still | relative_url }}" muted playsinline preload="{% if forloop.first %}auto{% else %}none{% endif %}" aria-hidden="true"{% if forloop.first %} class="on"{% endif %}></video>
-        {% endif %}{% endfor %}
-      </div>
-      <div class="hw-text m">
-        <h1 id="h1-window" class="hw-title">Youssef<br>measures AI</h1>
-        <div class="hw-side">
-          <p>{{ lede }}</p>
-          <p class="actions"><a class="btn" href="{{ d.links[0].url }}">Message me on LinkedIn</a></p>
-        </div>
-      </div>
-      <a class="hw-cap m" href="{{ site.projects | where: 'name', reel[0] | map: 'url' | first | relative_url }}" data-cap><span class="hw-cap-name">{{ reel[0] }}</span> <span class="hw-cap-desc">Now playing</span></a>
+  <!-- Hero: the title resolves from 1-bit noise into type, and a lens over it shows the raw signal again -->
+  <section class="hx m" aria-labelledby="hx-t">
+    <div class="hx-head">
+      <h1 id="hx-t" class="hx-t"><span class="hx-l">Youssef</span> <span class="hx-l">measures AI.</span></h1>
+      <canvas class="hx-c" aria-hidden="true"></canvas>
     </div>
-  </section>
-
-  <!-- Hero 2 · ring of frames: every project with a picture sits around the headline -->
-  <section class="hero hr m" data-variant="ring" aria-labelledby="h1-ring">
-    <div class="hr-ring">
-      {% for pp in withmedia limit: 22 %}
-      <a class="hr-f" href="{{ pp.url | relative_url }}" data-name="{{ pp.name }}" data-desc="{{ pp.summary | default: pp.name | escape }}"><img src="{{ pp.still | relative_url }}" alt="{{ pp.name }}"{% if pp.still_size %} width="{{ pp.still_size[0] }}" height="{{ pp.still_size[1] }}"{% endif %} loading="lazy"><img class="dz" src="{{ '/assets/projects/' | append: pp.name | append: '/dither.png' | relative_url }}" alt=""{% if pp.still_size %} width="{{ pp.still_size[0] }}" height="{{ pp.still_size[1] }}"{% endif %} loading="lazy"></a>
-      {% endfor %}
-      <div class="hr-core">
-        <p id="h1-ring" class="hr-title">Youssef<br>measures AI</p>
-        <p class="hr-lede" data-default="{{ lede | strip_html | escape }}">{{ lede }}</p>
-        <p class="actions"><a class="btn" href="{{ d.links[0].url }}">Message me on LinkedIn</a></p>
-      </div>
+    <div class="hx-side">
+      <p>{{ lede }}</p>
+      <p class="actions"><a class="btn" href="{{ d.links[0].url }}">Message me on LinkedIn</a><a href="#projects">See all {{ total }} projects</a></p>
     </div>
-  </section>
-
-  <!-- Hero 3 · sentence split by a frame: a reel of projects passes between the two halves -->
-  <section class="hero hs" data-variant="reel" aria-labelledby="h1-reel">
-    <div class="hs-stage m">
-      <p id="h1-reel" class="hs-title"><span class="hs-a">Youssef</span> <span class="hs-b">measures AI</span></p>
-      <div class="hs-frame">
-        <div class="hs-strip" data-strip>
-          {% for n in reel %}{% assign pp = site.projects | where: "name", n | first %}
-          <a href="{{ pp.url | relative_url }}" class="hs-item"><img src="{{ pp.still | relative_url }}" alt="{{ pp.name }}"{% if pp.still_size %} width="{{ pp.still_size[0] }}" height="{{ pp.still_size[1] }}"{% endif %}{% unless forloop.first %} loading="lazy"{% endunless %}><span>{{ pp.name }}</span></a>
-          {% endfor %}
-        </div>
-      </div>
-      <p class="hs-lede">{{ lede }}</p>
-      <p class="hs-act"><a class="btn" href="{{ d.links[0].url }}">Message me on LinkedIn</a></p>
-    </div>
+    <ul class="hx-proof" aria-label="Measured results">
+      <li><a href="{{ '/projects/treeseek/' | relative_url }}"><b>74 <small>vs 3,000</small></b><span>vector comparisons per query, same top-1 accuracy, in <i>treeseek</i></span></a></li>
+      <li><a href="{{ '/projects/zerocall/' | relative_url }}"><b>4 → 0</b><span>model calls when an agent reruns a decision, in <i>zerocall</i></span></a></li>
+      <li><a href="{{ '/projects/laya-compactor/' | relative_url }}"><b>−70%</b><span>retrieval context tokens, no loss in answer quality, in <i>laya-compactor</i></span></a></li>
+      <li><a href="{{ '/projects/trust-but-verify/' | relative_url }}"><b>+5 pts</b><span>pass rate from a test gate, at 1.5× the tokens, in <i>trust-but-verify</i></span></a></li>
+    </ul>
   </section>
 
   <section class="focus m" aria-labelledby="focus-h">
@@ -134,7 +101,7 @@ layout: default
     <div class="gh"><h2 id="wr-h" class="h2">Writing</h2><p>Notes on evals, calibration and agents, with the numbers behind them. <a href="{{ '/feed.xml' | relative_url }}">RSS</a></p></div>
     <ul class="posts">
       {% for post in site.posts %}
-      <li><a href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time><span><b>{{ post.title }}</b> {{ post.description }}</span></a></li>
+      <li><a href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time><span><b>{{ post.title }}</b> {{ post.description }}</span>{% if post.image %}<img class="pthumb" src="{{ post.image | relative_url }}" alt="" width="1200" height="630" loading="lazy">{% endif %}</a></li>
       {% endfor %}
     </ul>
     </div>
@@ -143,6 +110,3 @@ layout: default
 
 {% include footer.html %}
 
-<nav class="picker" aria-label="Hero variants" hidden>
-  <span>Hero</span><button data-pick="window">Window</button><button data-pick="ring">Ring</button><button data-pick="reel">Reel</button>
-</nav>
