@@ -57,8 +57,9 @@
   if (hx) {
     const head = $(".hx-head", hx), h1 = $(".hx-t", hx), cv = $(".hx-c", hx), ctx = cv.getContext("2d");
     const CELL = 2;                                     // one dither dot = 2 css px
+    const GRAIN = 66;                                   // the static jumps at about 15 fps, not 60
     const B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(v => (v + .5) / 16); // 4x4 Bayer
-    let W = 0, H = 0, alpha = null, seed = null, img = null, ink = [243, 243, 246];
+    let W = 0, H = 0, alpha = null, seed = null, img = null, ink = [243, 243, 246], JQ = 0;
 
     // Draw the real title, line by line, into a small offscreen bitmap: one pixel per dither cell.
     const sample = () => {
@@ -95,32 +96,41 @@
       for (let y = 0; y < H; y++) for (let x = 0; x < W; x++, k += 4) {
         const n = noise(x, y), i = y * W + x;
         if (n < 0) { px[k + 3] = 0; continue; }
-        const v = alpha[i] * (1 - n * .55) + (Math.random() - .5) * n * 1.25;
+        const h = (Math.imul(x + 1, 73856093) ^ Math.imul(y + 2, 19349663) ^ Math.imul(JQ + 3, 83492791)) >>> 0;
+        const v = alpha[i] * (1 - n * .55) + ((h % 1024) / 1024 - .5) * n * 1.1;
         const on = v > B[(x & 3) + ((y & 3) << 2)];
         px[k] = ink[0]; px[k + 1] = ink[1]; px[k + 2] = ink[2]; px[k + 3] = on ? 255 : 0;
       }
       ctx.putImageData(img, 0, 0);
     };
 
-    // 1 · on load: from noise to type in about 1.6 s, like a model settling on an answer
+    // 1 · on load: dots settle out of the static one by one, then CSS hands the word over
     const resolve = () => {
       sample(); hx.classList.add("dither");
       cv.style.transition = "none";
-      const t0 = performance.now(), dur = 2000, rgb = ink.join(" ");
-      const ramp = (k, a, b) => { const t = clamp((k - a) / (b - a)); return t * t * (3 - 2 * t); };
+      const t0 = performance.now(), dur = 1450, STATIC = .64;
+      let q = -1;
       const step = now => {
-        const k = clamp((now - t0) / dur), e = 1 - Math.pow(1 - k, 2.4);
-        // each dot settles at its own moment, so the word converges instead of fading as one block
-        render((x, y) => Math.max(0, (1 - e) * 1.55 - seed[y * W + x] * .55));
-        // the last stretch overlaps: live type comes up underneath while the dots dissolve, softened by a little blur
-        const live = ramp(k, .5, .92), gone = ramp(k, .62, 1);
-        h1.style.color = `rgb(${rgb} / ${live})`;
-        cv.style.opacity = 1 - gone;
-        cv.style.filter = gone > 0 ? `blur(${(gone * 2.5).toFixed(2)}px)` : "";
-        if (k < 1) return requestAnimationFrame(step);
-        hx.classList.remove("dither");
-        h1.style.color = ""; cv.style.opacity = ""; cv.style.filter = ""; cv.style.transition = "";
-        lensReady = true;
+        const k = clamp((now - t0) / dur);
+        if (k < STATIC) {
+          const e = 1 - Math.pow(1 - k / STATIC, 1.6);
+          const nq = Math.floor((now - t0) / GRAIN);
+          if (nq !== q) { q = nq; JQ = nq; render((x, y) => Math.max(0, (1 - e) * 1.5 - seed[y * W + x])); }
+          return requestAnimationFrame(step);
+        }
+        // settled: every cell is clean, so freeze the frame and let the main thread go
+        JQ++; render(() => 0);
+        cv.style.transition = "opacity .25s var(--out), filter .25s var(--out)";
+        h1.style.transition = "color .25s var(--out)";
+        hx.classList.add("settling");                      // keep the canvas visible while it fades
+        cv.style.opacity = "0"; cv.style.filter = "blur(2px)";
+        hx.classList.remove("dither");                     // the type returns underneath, one shape, one move
+        setTimeout(() => {
+          hx.classList.remove("settling");
+          cv.style.opacity = ""; cv.style.filter = ""; cv.style.transition = "";
+          h1.style.transition = "";
+          lensReady = true;
+        }, 270);
       };
       requestAnimationFrame(step);
     };
@@ -135,6 +145,7 @@
         raf = 0;
         if (!lensReady) return;
         const t = performance.now() / 1000;
+        JQ = Math.floor(performance.now() / GRAIN);
         const grow = clamp(live);
         render((x, y) => {
           const d = Math.hypot(x - mx, y - my) / (R * grow + .001);
