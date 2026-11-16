@@ -1,5 +1,6 @@
 ---
 name: "heizpro-ki"
+title: "heizpro-ki"
 summary: "A German voice agent that answers the phone for a heating company while the team is out on jobs."
 description: "A German voice agent that answers the phone for a heating company while the team is out on jobs."
 language: "TypeScript"

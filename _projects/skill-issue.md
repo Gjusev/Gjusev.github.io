@@ -1,5 +1,6 @@
 ---
 name: "skill-issue"
+title: "skill-issue"
 summary: "Do your skills help the agent, or just take up context? Local harness that runs a task with and without a skill and shows the evidence."
 description: "Do your skills help the agent, or just take up context? Local harness that runs a task with and without a skill and shows the evidence."
 language: "TypeScript"

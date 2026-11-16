@@ -1,5 +1,6 @@
 ---
 name: "somatriq"
+title: "somatriq"
 summary: "Somatriq, self-hosted personal biometric intelligence platform"
 description: "Somatriq, self-hosted personal biometric intelligence platform"
 language: "Python"

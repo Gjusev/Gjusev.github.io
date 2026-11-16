@@ -1,5 +1,6 @@
 ---
 name: "laya-phishield"
+title: "laya-phishield"
 summary: "Explainable phishing email detection: atomic semantic signals from a local System 1 decision model plus deterministic header/URL checks, combined by logistic regression"
 description: "Explainable phishing email detection: atomic semantic signals from a local System 1 decision model plus deterministic header/URL checks, combined by logistic."
 language: "Python"

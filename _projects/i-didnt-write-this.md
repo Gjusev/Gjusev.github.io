@@ -1,5 +1,6 @@
 ---
 name: "i-didnt-write-this"
+title: "i-didnt-write-this"
 summary: "Vibe-coded it? Now understand it. Turn one feature of your JS/TS project into an interactive, evidence-backed lesson."
 description: "Vibe-coded it? Now understand it. Turn one feature of your JS/TS project into an interactive, evidence-backed lesson."
 language: "JavaScript"

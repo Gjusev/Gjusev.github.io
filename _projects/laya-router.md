@@ -1,5 +1,6 @@
 ---
 name: "laya-router"
+title: "laya-router"
 summary: "OpenAI-compatible proxy that routes prompts to cheap or frontier LLMs using a local System 1 decision model (laya)"
 description: "OpenAI-compatible proxy that routes prompts to cheap or frontier LLMs using a local System 1 decision model (laya)"
 language: "Python"

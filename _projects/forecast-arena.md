@@ -1,5 +1,6 @@
 ---
 name: "forecast-arena"
+title: "forecast-arena"
 summary: "Testing AI forecasting models against reality. Reproducible benchmarks, real world datasets and honest results."
 description: "Testing AI forecasting models against reality. Reproducible benchmarks, real world datasets and honest results."
 language: "Python"

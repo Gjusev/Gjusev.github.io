@@ -1,5 +1,6 @@
 ---
 name: "voice-evals"
+title: "voice-evals"
 summary: "Reproducible evaluation for voice agents: replay scoring, scripted live probes over WebSocket, and CI gates for WER, latency, barge-in behavior and task outcomes."
 description: "Reproducible evaluation for voice agents: replay scoring, scripted live probes over WebSocket, and CI gates for WER, latency, barge-in behavior and task."
 language: "Python"

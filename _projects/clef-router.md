@@ -1,5 +1,6 @@
 ---
 name: "clef-router"
+title: "clef-router"
 summary: "Route prompts between cheap and frontier LLMs with Cloudflare's Clef decision model. OpenAI-compatible proxy + library."
 description: "Route prompts between cheap and frontier LLMs with Cloudflare's Clef decision model. OpenAI-compatible proxy + library."
 language: "Python"

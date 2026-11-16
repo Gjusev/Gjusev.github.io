@@ -1,5 +1,6 @@
 ---
 name: "note-lm"
+title: "note-lm"
 summary: "Self-hosted research notebook: ingest PDFs, videos, YouTube and pages; transcribe in the background; chat with citations across all sources"
 description: "Self-hosted research notebook: ingest PDFs, videos, YouTube and pages; transcribe in the background; chat with citations across all sources"
 language: "TypeScript"

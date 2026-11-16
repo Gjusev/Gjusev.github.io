@@ -1,5 +1,6 @@
 ---
 name: "gate-calibrated"
+title: "gate-calibrated"
 summary: "Calibrated act/ask gate for tool-using agents' write actions, with conformal risk control. Open, reproducible evaluation on tau-bench retail, negative results included."
 description: "Calibrated act/ask gate for tool-using agents' write actions, with conformal risk control."
 language: "Python"

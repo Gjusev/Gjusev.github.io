@@ -23,7 +23,7 @@ layout: default
 <main id="main-content" class="proj">
   <section class="ph m">
     <div class="ph-text">
-      <h1>{{ page.name }}</h1>
+      <h1 style="view-transition-name:pt-{{ page.name | slugify }}">{{ page.name }}</h1>
       <p class="lede">{{ summary }}</p>
       <p class="actions">
         <a class="btn" href="https://github.com/Gjusev/{{ page.name }}">Code on GitHub</a>
@@ -62,8 +62,12 @@ layout: default
   </div>
 
   <a class="next m" href="{{ nxt.url | relative_url }}">
-    <span class="next-name">{{ nxt.name }} <span aria-hidden="true">→</span></span>
-    <span class="sub">Next project. {{ nxt.summary | default: nxt.description | truncate: 110 }}</span>
+    <span class="next-text">
+      <span class="sub">Next project</span>
+      <span class="next-name" style="view-transition-name:pt-{{ nxt.name | slugify }}">{{ nxt.name }}</span>
+      <span class="next-desc">{{ nxt.summary | default: nxt.description | truncate: 120 }}</span>
+    </span>
+    {% if nxt.still %}<span class="next-img" aria-hidden="true"><img src="{{ nxt.still | relative_url }}" alt=""{% if nxt.still_size %} width="{{ nxt.still_size[0] }}" height="{{ nxt.still_size[1] }}"{% endif %} loading="lazy"><img class="nd" src="{{ '/assets/projects/' | append: nxt.name | append: '/dither.png' | relative_url }}" alt="" loading="lazy"></span>{% endif %}
   </a>
 </main>
 

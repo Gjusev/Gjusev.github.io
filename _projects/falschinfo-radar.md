@@ -1,5 +1,6 @@
 ---
 name: "falschinfo-radar"
+title: "falschinfo-radar"
 summary: "German nutrition misinformation radar: finds myth videos by reach, extracts the exact false claim, ranks, drafts the correction, application project with the Heißhunger e-book"
 description: "German nutrition misinformation radar: finds myth videos by reach, extracts the exact false claim, ranks, drafts the correction, application project with the."
 language: "TypeScript"

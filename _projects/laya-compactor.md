@@ -1,5 +1,6 @@
 ---
 name: "laya-compactor"
+title: "laya-compactor"
 summary: "Cut 70% of RAG context tokens with zero answer-quality loss, measured: one local forward pass scores every retrieved chunk and the budget decides"
 description: "Cut 70% of RAG context tokens with zero answer-quality loss, measured: one local forward pass scores every retrieved chunk and the budget decides"
 language: "Python"

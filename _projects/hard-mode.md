@@ -1,5 +1,6 @@
 ---
 name: "hard-mode"
+title: "hard-mode"
 summary: "Your beautiful demo meets real life. Local Playwright runner + agent skill that test a web app under difficult UI scenarios with reproducible evidence."
 description: "Your beautiful demo meets real life. Local Playwright runner + agent skill that test a web app under difficult UI scenarios with reproducible evidence."
 language: "TypeScript"

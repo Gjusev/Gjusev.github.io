@@ -252,7 +252,7 @@ def main(names):
         intro, how, table, code = extract(md)
         summary = dedash(meta.get("description") or "") or OWN.get(name, "")
         fm = {
-            "name": name, "summary": summary, "description": seo(summary, OWN.get(name)), "language": meta.get("language"),
+            "name": name, "title": name, "summary": summary, "description": seo(summary, OWN.get(name)), "language": meta.get("language"),
             "stars": meta.get("stargazers_count", 0), "homepage": meta.get("homepage") or None,
             "license": (meta.get("license") or {}).get("spdx_id"), "pushed": meta["pushed_at"][:10],
             "topics": meta.get("topics", [])[:6], "video": v, "still": img, "still_size": size_of(img), "image": og_card(name, img),

@@ -1,5 +1,6 @@
 ---
 name: "MK-SH-V"
+title: "MK-SH-V"
 summary: "MK-SH-V: a 260M visual decision model. Calibrated probabilities, a choice, and a refusal below a validated gate, over document pages and screenshots."
 description: "MK-SH-V: a 260M visual decision model. Calibrated probabilities, a choice, and a refusal below a validated gate, over document pages and screenshots."
 language: "Python"

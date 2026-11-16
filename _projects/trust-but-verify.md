@@ -1,5 +1,6 @@
 ---
 name: "trust-but-verify"
+title: "trust-but-verify"
 summary: "Four ways to check a coding agent's work, measured on pass rate and token cost. Test gate: +5 pts at 1.5x tokens; reviewer: +5 pts at 3.56x. HumanEval, glm-4.5-flash."
 description: "Four ways to check a coding agent's work, measured on pass rate and token cost. Test gate: +5 pts at 1.5x tokens; reviewer: +5 pts at 3.56x."
 language: "Python"

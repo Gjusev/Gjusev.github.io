@@ -1,5 +1,6 @@
 ---
 name: "folio"
+title: "folio"
 summary: "Self-hosted scientific LaTeX editor"
 description: "Self-hosted scientific LaTeX editor. An open-source project by Youssef, AI product engineer in Siegen."
 language: "TypeScript"

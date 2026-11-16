@@ -1,5 +1,6 @@
 ---
 name: "nexary-platform"
+title: "nexary-platform"
 summary: "On-premise enterprise AI platform: multi-provider LLM chat, hybrid RAG (dense + BM25 + cross-encoder rerank), SYSLOG-auditable, runs inside customer networks"
 description: "On-premise enterprise AI platform: multi-provider LLM chat, hybrid RAG (dense + BM25 + cross-encoder rerank), SYSLOG-auditable, runs inside customer networks"
 language: "TypeScript"

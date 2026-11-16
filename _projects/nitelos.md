@@ -1,5 +1,6 @@
 ---
 name: "nitelos"
+title: "nitelos"
 summary: "Nitelos, verify the outcome, not the attempt (Python SDK)"
 description: "Nitelos, verify the outcome, not the attempt (Python SDK)"
 language: "Python"

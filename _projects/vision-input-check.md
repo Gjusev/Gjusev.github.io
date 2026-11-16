@@ -1,5 +1,6 @@
 ---
 name: "vision-input-check"
+title: "vision-input-check"
 summary: "Regression tests for images sent to vision LLM APIs: pixel-identical vs lossy input variants, variance-aware scoring, CI gates."
 description: "Regression tests for images sent to vision LLM APIs: pixel-identical vs lossy input variants, variance-aware scoring, CI gates."
 language: "Python"

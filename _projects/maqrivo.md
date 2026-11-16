@@ -1,5 +1,6 @@
 ---
 name: "maqrivo"
+title: "maqrivo"
 summary: "Personal nutrition, meal planning, grocery optimization and supermarket intelligence"
 description: "Personal nutrition, meal planning, grocery optimization and supermarket intelligence"
 language: "TypeScript"

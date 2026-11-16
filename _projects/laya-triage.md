@@ -1,5 +1,6 @@
 ---
 name: "laya-triage"
+title: "laya-triage"
 summary: "Multilingual support ticket triage with a local System 1 decision model: hierarchical intent routing, urgency/frustration/churn signals, confidence-based escalation"
 description: "Multilingual support ticket triage with a local System 1 decision model: hierarchical intent routing, urgency/frustration/churn signals, confidence-based."
 language: "Python"

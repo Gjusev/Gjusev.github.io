@@ -1,5 +1,6 @@
 ---
 name: "redaction-ci"
+title: "redaction-ci"
 summary: "GitHub Action that fails CI when a committed PDF still contains the text it pretends to have redacted. gitleaks, but for PDFs."
 description: "GitHub Action that fails CI when a committed PDF still contains the text it pretends to have redacted. gitleaks, but for PDFs."
 language: "Python"

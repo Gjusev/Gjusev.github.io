@@ -119,7 +119,7 @@ layout: default
       <ul class="rows">
         {% for p in g.items %}{% assign pp = site.projects | where: "name", p.name | first %}
         <li data-repo="{{ p.name }}"{% if pp.still %} data-thumb="{{ pp.still | relative_url }}" data-dither="{{ '/assets/projects/' | append: pp.name | append: '/dither.png' | relative_url }}"{% endif %}>
-          <a class="name" href="{% if pp %}{{ pp.url | relative_url }}{% else %}https://github.com/Gjusev/{{ p.name }}{% endif %}">{{ p.name }}{% unless pp %} <span aria-hidden="true">↗</span>{% endunless %}</a>
+          <a class="name" href="{% if pp %}{{ pp.url | relative_url }}{% else %}https://github.com/Gjusev/{{ p.name }}{% endif %}"{% if pp %} style="view-transition-name:pt-{{ p.name | slugify }}"{% endif %}>{{ p.name }}{% unless pp %} <span aria-hidden="true">↗</span>{% endunless %}</a>
           <span class="desc">{{ p.desc }}</span>
           <span class="meta">{% if p.metric %}<b>{{ p.metric }}</b>{% endif %}{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</span>
         </li>

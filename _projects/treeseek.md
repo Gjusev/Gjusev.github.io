@@ -1,5 +1,6 @@
 ---
 name: "treeseek"
+title: "treeseek"
 summary: "Retrieval that walks a topic tree: 74 vector comparisons per query instead of 3000, same Recall@1. Measured against flat dense retrieval on 20 Newsgroups."
 description: "Retrieval that walks a topic tree: 74 vector comparisons per query instead of 3000, same Recall@1. Measured against flat dense retrieval on 20 Newsgroups."
 language: "Python"

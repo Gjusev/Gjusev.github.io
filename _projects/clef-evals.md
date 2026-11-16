@@ -1,5 +1,6 @@
 ---
 name: "clef-evals"
+title: "clef-evals"
 summary: "Calibration-first evaluation toolkit for Cloudflare's Clef decision models. Judge cheap, audit confidence."
 description: "Calibration-first evaluation toolkit for Cloudflare's Clef decision models. Judge cheap, audit confidence."
 language: "Python"

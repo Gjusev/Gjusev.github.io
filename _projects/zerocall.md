@@ -1,5 +1,6 @@
 ---
 name: "zerocall"
+title: "zerocall"
 summary: "Skip the model call when nothing changed: guarded decision reuse for tool-using agents. Warm rerun: 4 model calls to 0, 1092 tokens to 0. Python, stdlib only."
 description: "Skip the model call when nothing changed: guarded decision reuse for tool-using agents. Warm rerun: 4 model calls to 0, 1092 tokens to 0. Python, stdlib only."
 language: "Python"

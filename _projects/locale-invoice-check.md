@@ -1,5 +1,6 @@
 ---
 name: "locale-invoice-check"
+title: "locale-invoice-check"
 summary: "Matched-pair EN/DE/ES invoice extraction regression harness with deterministic CI gates"
 description: "Matched-pair EN/DE/ES invoice extraction regression harness with deterministic CI gates"
 language: "Python"

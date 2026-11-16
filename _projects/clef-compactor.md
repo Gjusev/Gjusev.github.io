@@ -1,5 +1,6 @@
 ---
 name: "clef-compactor"
+title: "clef-compactor"
 summary: "Query-aware RAG context compaction with Cloudflare Clef: keep the evidence, cut noisy retrieval context."
 description: "Query-aware RAG context compaction with Cloudflare Clef: keep the evidence, cut noisy retrieval context."
 language: "Python"

@@ -13,6 +13,38 @@
   const frame = () => { ticking = false; onScroll.forEach(f => f()); };
   addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(frame); } }, { passive: true });
   addEventListener("resize", frame);
+  if (!reduce && window.Lenis) {
+    const lenis = new Lenis({ lerp: .11, wheelMultiplier: 1, anchors: true, autoRaf: true });
+    window.__lenis = lenis;
+  }
+  const ready = () => requestAnimationFrame(() => requestAnimationFrame(() => root.classList.add("ready")));
+  if (reduce || !document.fonts) ready(); else Promise.race([document.fonts.ready, new Promise(r => setTimeout(r, 1200))]).then(ready);
+
+  /* ---------- a bar that steps aside on the way down and returns on the way up ---------- */
+  const bar = $(".bar");
+  if (bar) {
+    const dock = document.createElement("div"); dock.className = "dock"; dock.setAttribute("aria-hidden", "true");
+    const copy = bar.cloneNode(true); copy.classList.remove("over"); copy.querySelectorAll("a").forEach(a => a.tabIndex = -1);
+    dock.append(copy); document.body.append(dock);
+    let lastY = scrollY;
+    onScroll.push(() => {
+      const y = scrollY, up = y < lastY - 2, down = y > lastY + 2;
+      if (y < innerHeight * .8 || down) dock.classList.remove("show");
+      else if (up) dock.classList.add("show");
+      lastY = y;
+    });
+    // mark the section you are in
+    const links = [...bar.querySelectorAll('a[href^="#"]'), ...copy.querySelectorAll('a[href^="#"]')];
+    const secs = [...new Set(links.map(a => a.getAttribute("href")))].map(h => document.querySelector(h)).filter(Boolean);
+    if (secs.length) {
+      const sio = new IntersectionObserver(es => es.forEach(e => {
+        if (!e.isIntersecting) return;
+        links.forEach(a => a.toggleAttribute("aria-current", a.getAttribute("href") === "#" + e.target.id));
+      }), { rootMargin: "-45% 0px -50% 0px" });
+      secs.forEach(s => sio.observe(s));
+    }
+  }
+
   const progress = el => { const r = el.getBoundingClientRect(); return clamp(-r.top / Math.max(1, r.height - innerHeight)); };
   const wide = () => innerWidth > 1000;
 
@@ -149,18 +181,21 @@
 
   /* ---------- section entrances ---------- */
   if (!reduce && "IntersectionObserver" in window) {
-    const sel = ".h2:not(.hero-t), .how-head .lede, .projects > .sub, .fx, .gh, .rows li, .posts li, .connect, .ph-text > *, .facts .fact, .ph-media, .prose > *, .figs > *";
+    const sel = ".how-head .lede, .projects > .sub, .gidx, .fx > :not(.pic), .gh p, .gh h3, .rows li, .posts li, .connect .lede, .connect .actions, .connect li, .colophon, .ph-text > :not(h1), .facts .fact, .prose > *, .figs figcaption, .bm-head .lede, .next-text > *";
     const els = $$(sel).filter(el => !el.closest(".hero"));
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" });
     let last = null, n = 0;
     els.forEach(el => { n = el.parentElement === last ? n + 1 : 0; last = el.parentElement; el.style.setProperty("--d", Math.min(n, 8) * 70 + "ms"); el.setAttribute("data-reveal", ""); });
+    $$(".h2, .bm h1, .nf h1").forEach(h => { h.innerHTML = `<span class="mask"><span>${h.innerHTML}</span></span>`; els.push(h); });
+    $$(".fx .pic, .ph-media, .figs figure, .next-img").forEach((el, i) => { el.setAttribute("data-clip", ""); els.push(el); });
     requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => io.observe(el))));
 
     // Headlines rise line by line out of a mask.
-    $$(".hw-title, .hr-title, .ph h1").forEach(h => {
+    $$(".hw-title, .hr-title").forEach(h => {
       const lines = h.innerHTML.split(/<br\s*\/?>/i);
       h.innerHTML = lines.map((l, i) => `<span class="mask" style="--d:${120 + i * 110}ms"><span>${l}</span></span>`).join("");
-      requestAnimationFrame(() => requestAnimationFrame(() => h.classList.add("in")));
+      const go = () => h.classList.add("in");
+      root.classList.contains("ready") ? go() : new MutationObserver((m, o) => { if (root.classList.contains("ready")) { go(); o.disconnect(); } }).observe(root, { attributes: true, attributeFilter: ["class"] });
     });
 
     // The closing name is cut into stripes that slide into register as the page ends (after Space Type Generator).

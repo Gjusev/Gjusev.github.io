@@ -1,5 +1,6 @@
 ---
 name: "studio-command-center"
+title: "studio-command-center"
 summary: "Multi-tenant fitness-studio operations: inventory, machine maintenance, staff tasks with photo proof and audit trail, Next.js 15, Better Auth, PostgreSQL"
 description: "Multi-tenant fitness-studio operations: inventory, machine maintenance, staff tasks with photo proof and audit trail, Next.js 15, Better Auth, PostgreSQL"
 language: "TypeScript"

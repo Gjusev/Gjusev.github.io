@@ -1,5 +1,6 @@
 ---
 name: "voxentity-eu"
+title: "voxentity-eu"
 summary: "Open DE/FR benchmark of exact spoken-entity capture (names, phones, emails, dates, addresses, codes) on synthetic speech with a simulated telephone channel. Provisional: automated QA only."
 description: "Open DE/FR benchmark of exact spoken-entity capture (names, phones, emails, dates, addresses, codes) on synthetic speech with a simulated telephone channel."
 language: "Python"

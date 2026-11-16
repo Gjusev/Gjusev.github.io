@@ -1,5 +1,6 @@
 ---
 name: "laya-evals"
+title: "laya-evals"
 summary: "LLM-as-judge and calibration auditing for System 1 decision models: rubric scoring in CI plus reliability diagrams, ECE and coverage/accuracy thresholds by option count"
 description: "LLM-as-judge and calibration auditing for System 1 decision models: rubric scoring in CI plus reliability diagrams, ECE and coverage/accuracy thresholds by."
 language: "Python"
