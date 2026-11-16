@@ -46,6 +46,14 @@ PICKS = {
   "somatriq": dict(video="docs/brand/screenshots/brag.mp4", img="docs/brand/screenshots/dashboard-desktop.png"),
   "studio-command-center": dict(video="docs/screenshots/brag.mp4", img="docs/screenshots/dashboard.png", more=["docs/screenshots/machines.png"]),
   "maqrivo": dict(video="docs/screenshots/brag.mp4", img="docs/screenshots/planner.png"),
+  "decision-gate": dict(video="assets/video/decision-gate.mp4", poster_at=7),
+  "routed-memory": dict(video="assets/video/routed-memory.mp4", poster_at=7),
+  "agency-bench": dict(video="assets/video/agency-bench.mp4", poster_at=7),
+  "compact-bench": dict(video="assets/video/compact-bench.mp4", poster_at=7),
+  "wikitrace-repro": dict(video="assets/video/wikitrace-repro.mp4", poster_at=7),
+  "somem-repro": dict(video="assets/video/somem-repro.mp4", poster_at=7),
+  "xrechnung-bench": dict(video="assets/video/xrechnung-bench.mp4", poster_at=7),
+  "reliagate": dict(video="assets/video/reliagate.mp4", poster_at=7),
   "falschinfo-radar": dict(video="docs/screenshots/brag.mp4", img="docs/screenshots/radar-dashboard.png"),
 }
 
@@ -90,7 +98,7 @@ def media(name, branch, path, kind):
                             "-c:v", "libx264", "-crf", "31", "-preset", "slow", "-pix_fmt", "yuv420p", "-movflags", "+faststart", str(dest)], check=True)
             poster = out_dir / "poster.webp"
             if not poster.exists():
-                subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "3", "-i", str(dest), "-frames:v", "1", str(out_dir / "poster.png")], check=True)
+                subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", str(PICKS.get(name, {}).get("poster_at", 3)), "-i", str(dest), "-frames:v", "1", str(out_dir / "poster.png")], check=True)
                 Image.open(out_dir / "poster.png").convert("RGB").save(poster, quality=80)
                 (out_dir / "poster.png").unlink()
         else:
