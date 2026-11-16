@@ -115,7 +115,7 @@ groups:
       - {name: falschinfo-radar, desc: "Finds nutrition myths in videos with reach, pins down the false claim and drafts the correction."}
 
 links:
-  - {label: LinkedIn, url: "https://www.linkedin.com/in/youssef-o-6b93611b7/"}
+  - {label: LinkedIn, url: "https://www.linkedin.com/in/youssef-ouhaghi-6b93611b7/"}
   - {label: GitHub, url: "https://github.com/Gjusev"}
   - {label: Hugging Face, url: "https://huggingface.co/Gjusev"}
   - {label: Kaggle, url: "https://www.kaggle.com/gjusev"}
