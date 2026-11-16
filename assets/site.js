@@ -119,9 +119,9 @@
   }
 
   /* ---------- receipts and counting numbers ---------- */
-  $$(".fx .num").forEach(b => b.addEventListener("click", () => {
-    const open = b.closest(".fx").classList.toggle("open");
-    b.setAttribute("aria-expanded", open);
+  $$(".fx .num, .fx .how-m").forEach(b => b.addEventListener("click", () => {
+    const fx = b.closest(".fx"), open = fx.classList.toggle("open");
+    $$(".num, .how-m", fx).forEach(x => x.setAttribute("aria-expanded", open));
   }));
   if (!reduce) {
     const cio = new IntersectionObserver(es => es.forEach(e => {

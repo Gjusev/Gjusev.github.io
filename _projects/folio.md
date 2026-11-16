@@ -1,6 +1,7 @@
 ---
 name: "folio"
-description: "Self-hosted scientific LaTeX editor"
+summary: "Self-hosted scientific LaTeX editor"
+description: "Self-hosted scientific LaTeX editor. An open-source project by Youssef, AI product engineer in Siegen."
 language: "TypeScript"
 stars: 3
 homepage: "https://folio.mokka-agentur.de"
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-11-09"
 topics: []
 video: "/assets/projects/folio/demo.mp4"
-image: "/assets/projects/folio/still-readme-promo.webp"
-image_size: [720, 406]
+still: "/assets/projects/folio/still-readme-promo.webp"
+still_size: [720, 406]
+image: "/assets/projects/folio/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}
@@ -25,7 +28,7 @@ change as a diff you apply.
 the open alternative to OpenAI's Prism: an assistant that knows your whole
 paper, a drafting agent that brings real literature as evidence, a reviewer
 that quotes your own text, compile errors fixed as patches, whiteboard photos
-turned into LaTeX — with co-authors in the same project. LaTeX is the format;
+turned into LaTeX, with co-authors in the same project. LaTeX is the format;
 the product is the writing loop, from the first literature search to the arXiv
 package.
 
@@ -33,9 +36,9 @@ package.
 
 |                           Editor + compiled PDF                           |                                  Literature explorer                                   |
 | :-----------------------------------------------------------------------: | :------------------------------------------------------------------------------------: |
-| ![Editor with source, compiled PDF and file tree](docs/images/editor.jpg) | ![Similarity graph with list, timeline and paper card](docs/images/graph-explorer.jpg) |
+|  |  |
 |                            **Project library**                            |                                   **AI review mode**                                   |
-|     ![Bibliography with cited/unused status](docs/images/library.jpg)     |    ![Review panel with scope, aspects and reviewer profile](docs/images/review.jpg)    |
+|          |        |
 
 ## Try it
 

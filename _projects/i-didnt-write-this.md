@@ -1,5 +1,6 @@
 ---
 name: "i-didnt-write-this"
+summary: "Vibe-coded it? Now understand it. Turn one feature of your JS/TS project into an interactive, evidence-backed lesson."
 description: "Vibe-coded it? Now understand it. Turn one feature of your JS/TS project into an interactive, evidence-backed lesson."
 language: "JavaScript"
 stars: 1
@@ -8,9 +9,11 @@ license: "MIT"
 pushed: "2026-10-09"
 topics: ["agent-skills", "ai-agents", "claude", "code-comprehension", "code-learning", "codex"]
 video: null
-image: "/assets/projects/i-didnt-write-this/still-social-preview.webp"
-image_size: [1280, 640]
+still: "/assets/projects/i-didnt-write-this/still-social-preview.webp"
+still_size: [1280, 640]
+image: "/assets/projects/i-didnt-write-this/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}

@@ -1,5 +1,6 @@
 ---
 name: "vision-input-check"
+summary: "Regression tests for images sent to vision LLM APIs: pixel-identical vs lossy input variants, variance-aware scoring, CI gates."
 description: "Regression tests for images sent to vision LLM APIs: pixel-identical vs lossy input variants, variance-aware scoring, CI gates."
 language: "Python"
 stars: 1
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-10-05"
 topics: ["ci-cd", "evaluation", "image-processing", "llm", "machine-learning", "pytest"]
 video: null
-image: "/assets/projects/vision-input-check/still-social-preview.webp"
-image_size: [1280, 640]
+still: "/assets/projects/vision-input-check/still-social-preview.webp"
+still_size: [1280, 640]
+image: "/assets/projects/vision-input-check/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}

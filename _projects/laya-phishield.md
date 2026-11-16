@@ -1,6 +1,7 @@
 ---
 name: "laya-phishield"
-description: "Explainable phishing email detection: atomic semantic signals from a local System 1 decision model plus deterministic header/URL checks, combined by logistic regression"
+summary: "Explainable phishing email detection: atomic semantic signals from a local System 1 decision model plus deterministic header/URL checks, combined by logistic regression"
+description: "Explainable phishing email detection: atomic semantic signals from a local System 1 decision model plus deterministic header/URL checks, combined by logistic."
 language: "Python"
 stars: 1
 homepage: null
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-09-30"
 topics: ["email-security", "explainable-ai", "fraud-detection", "laya", "phishing-detection"]
 video: null
-image: "/assets/projects/laya-phishield/still-social-preview.webp"
-image_size: [1280, 640]
+still: "/assets/projects/laya-phishield/still-social-preview.webp"
+still_size: [1280, 640]
+image: "/assets/projects/laya-phishield/og.jpg"
 diagram: "/assets/projects/laya-phishield/diagram-how-it-works-phish.webp"
+diagram_size: [747, 1600]
 figures: []
 ---
 {% raw %}

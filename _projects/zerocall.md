@@ -1,5 +1,6 @@
 ---
 name: "zerocall"
+summary: "Skip the model call when nothing changed: guarded decision reuse for tool-using agents. Warm rerun: 4 model calls to 0, 1092 tokens to 0. Python, stdlib only."
 description: "Skip the model call when nothing changed: guarded decision reuse for tool-using agents. Warm rerun: 4 model calls to 0, 1092 tokens to 0. Python, stdlib only."
 language: "Python"
 stars: 1
@@ -8,10 +9,12 @@ license: "MIT"
 pushed: "2026-11-02"
 topics: ["ai-agents", "caching", "llm-agents", "python", "token-efficiency", "tool-use"]
 video: "/assets/projects/zerocall/demo.mp4"
-image: "/assets/projects/zerocall/poster.webp"
-image_size: [960, 540]
+still: "/assets/projects/zerocall/poster.webp"
+still_size: [960, 540]
+image: "/assets/projects/zerocall/og.jpg"
 diagram: "/assets/projects/zerocall/diagram-zerocall-flow.webp"
-figures: ["/assets/projects/zerocall/figure-zerocall-results.webp"]
+diagram_size: [1600, 620]
+figures: [{"src": "/assets/projects/zerocall/figure-zerocall-results.webp", "size": [1600, 520]}]
 ---
 {% raw %}
 ## What it is

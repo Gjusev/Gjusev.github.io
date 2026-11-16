@@ -1,6 +1,7 @@
 ---
 name: "heizpro-ki"
-description: ""
+summary: "A German voice agent that answers the phone for a heating company while the team is out on jobs."
+description: "A German voice agent that answers the phone for a heating company while the team is out on jobs."
 language: "TypeScript"
 stars: 1
 homepage: null
@@ -8,10 +9,12 @@ license: "MIT"
 pushed: "2026-09-24"
 topics: []
 video: "/assets/projects/heizpro-ki/demo.mp4"
-image: "/assets/projects/heizpro-ki/still-dashboard-preview.webp"
-image_size: [1249, 1221]
+still: "/assets/projects/heizpro-ki/still-dashboard-preview.webp"
+still_size: [1249, 1221]
+image: "/assets/projects/heizpro-ki/og.jpg"
 diagram: null
-figures: ["/assets/projects/heizpro-ki/figure-simulator-preview.webp"]
+diagram_size: null
+figures: [{"src": "/assets/projects/heizpro-ki/figure-simulator-preview.webp", "size": [1249, 1221]}]
 ---
 {% raw %}
 ## What it is

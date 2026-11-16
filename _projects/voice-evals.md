@@ -1,6 +1,7 @@
 ---
 name: "voice-evals"
-description: "Reproducible evaluation for voice agents: replay scoring, scripted live probes over WebSocket, and CI gates for WER, latency, barge-in behavior and task outcomes."
+summary: "Reproducible evaluation for voice agents: replay scoring, scripted live probes over WebSocket, and CI gates for WER, latency, barge-in behavior and task outcomes."
+description: "Reproducible evaluation for voice agents: replay scoring, scripted live probes over WebSocket, and CI gates for WER, latency, barge-in behavior and task."
 language: "Python"
 stars: 1
 homepage: "https://pypi.org/project/voice-evals/"
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-10-04"
 topics: ["benchmark", "evaluation", "latency", "llm", "pytest", "stt"]
 video: "/assets/projects/voice-evals/demo.mp4"
-image: "/assets/projects/voice-evals/still-voice-evals-demo-poster.webp"
-image_size: [1280, 720]
+still: "/assets/projects/voice-evals/still-voice-evals-demo-poster.webp"
+still_size: [1280, 720]
+image: "/assets/projects/voice-evals/og.jpg"
 diagram: "/assets/projects/voice-evals/diagram-evaluation-flow.svg"
+diagram_size: null
 figures: []
 ---
 {% raw %}

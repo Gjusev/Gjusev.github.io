@@ -1,5 +1,6 @@
 ---
 name: "skill-issue"
+summary: "Do your skills help the agent, or just take up context? Local harness that runs a task with and without a skill and shows the evidence."
 description: "Do your skills help the agent, or just take up context? Local harness that runs a task with and without a skill and shows the evidence."
 language: "TypeScript"
 stars: 1
@@ -8,9 +9,11 @@ license: "MIT"
 pushed: "2026-11-13"
 topics: ["agent-skills", "ai-agents", "benchmarking", "claude-code", "codex", "evaluation"]
 video: null
-image: "/assets/projects/skill-issue/still-social-preview.webp"
-image_size: [1280, 640]
+still: "/assets/projects/skill-issue/still-social-preview.webp"
+still_size: [1280, 640]
+image: "/assets/projects/skill-issue/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}

@@ -1,16 +1,22 @@
-title: Youssef — AI product engineer
-description: Founder of mokka in Siegen. Open tools that test AI systems against reality, with every number published.
+title: Youssef, AI product engineer
+tagline: Evals, agents and local AI
+logo: /assets/favicon.svg
+image: /assets/og.png
+author: Youssef
+description: AI product engineer and founder of mokka in Siegen. Open tools that check whether AI does what it claims, with every result published.
 url: https://gjusev.github.io
 baseurl: ""
 repository: Gjusev/Gjusev.github.io
 lang: en
 permalink: /writing/:year/:title/
-plugins: [jekyll-feed, jekyll-seo-tag]
+plugins: [jekyll-feed, jekyll-seo-tag, jekyll-sitemap]
 collections:
   projects:
     output: true
     permalink: /projects/:name/
 defaults:
+  - scope: {path: ""}
+    values: {image: /assets/og.png}
   - scope: {path: "", type: projects}
     values: {layout: project}
   - scope: {path: "", type: posts}

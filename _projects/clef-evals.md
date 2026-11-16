@@ -1,5 +1,6 @@
 ---
 name: "clef-evals"
+summary: "Calibration-first evaluation toolkit for Cloudflare's Clef decision models. Judge cheap, audit confidence."
 description: "Calibration-first evaluation toolkit for Cloudflare's Clef decision models. Judge cheap, audit confidence."
 language: "Python"
 stars: 1
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-10-01"
 topics: ["brier-score", "calibration", "ci-gate", "clef", "cloudflare", "ece"]
 video: null
-image: "/assets/projects/clef-evals/still-social-preview-v2.webp"
-image_size: [1200, 630]
+still: "/assets/projects/clef-evals/still-social-preview-v2.webp"
+still_size: [1200, 630]
+image: "/assets/projects/clef-evals/og.jpg"
 diagram: "/assets/projects/clef-evals/diagram-pipeline.svg"
+diagram_size: null
 figures: []
 ---
 {% raw %}

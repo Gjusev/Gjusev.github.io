@@ -1,5 +1,6 @@
 ---
 name: "clef-router"
+summary: "Route prompts between cheap and frontier LLMs with Cloudflare's Clef decision model. OpenAI-compatible proxy + library."
 description: "Route prompts between cheap and frontier LLMs with Cloudflare's Clef decision model. OpenAI-compatible proxy + library."
 language: "Python"
 stars: 3
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-10-01"
 topics: ["cloudflare", "cost-optimization", "decision-model", "llm", "model-routing", "openai"]
 video: null
-image: "/assets/projects/clef-router/still-social-preview-art.webp"
-image_size: [1280, 640]
+still: "/assets/projects/clef-router/still-social-preview-art.webp"
+still_size: [1280, 640]
+image: "/assets/projects/clef-router/og.jpg"
 diagram: "/assets/projects/clef-router/diagram-how-it-works.svg"
+diagram_size: null
 figures: []
 ---
 {% raw %}

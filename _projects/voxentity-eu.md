@@ -1,6 +1,7 @@
 ---
 name: "voxentity-eu"
-description: "Open DE/FR benchmark of exact spoken-entity capture (names, phones, emails, dates, addresses, codes) on synthetic speech with a simulated telephone channel. Provisional: automated QA only."
+summary: "Open DE/FR benchmark of exact spoken-entity capture (names, phones, emails, dates, addresses, codes) on synthetic speech with a simulated telephone channel. Provisional: automated QA only."
+description: "Open DE/FR benchmark of exact spoken-entity capture (names, phones, emails, dates, addresses, codes) on synthetic speech with a simulated telephone channel."
 language: "Python"
 stars: 1
 homepage: null
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-10-15"
 topics: []
 video: "/assets/projects/voxentity-eu/demo.mp4"
-image: "/assets/projects/voxentity-eu/still-voxentity-eu-demo-poster.webp"
-image_size: [1600, 900]
+still: "/assets/projects/voxentity-eu/still-voxentity-eu-demo-poster.webp"
+still_size: [1600, 900]
+image: "/assets/projects/voxentity-eu/og.jpg"
 diagram: "/assets/projects/voxentity-eu/diagram-cell_accuracy.webp"
+diagram_size: [650, 538]
 figures: []
 ---
 {% raw %}

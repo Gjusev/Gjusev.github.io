@@ -1,6 +1,7 @@
 ---
 name: "nitelos"
-description: "Nitelos — verify the outcome, not the attempt (Python SDK)"
+summary: "Nitelos, verify the outcome, not the attempt (Python SDK)"
+description: "Nitelos, verify the outcome, not the attempt (Python SDK)"
 language: "Python"
 stars: 1
 homepage: null
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-11-13"
 topics: []
 video: null
-image: "/assets/projects/nitelos/still-nitelos-main-poster.webp"
-image_size: [1600, 900]
+still: "/assets/projects/nitelos/still-nitelos-main-poster.webp"
+still_size: [1600, 900]
+image: "/assets/projects/nitelos/og.jpg"
 diagram: "/assets/projects/nitelos/diagram-nitelos-workflow-poster.webp"
+diagram_size: [1600, 900]
 figures: []
 ---
 {% raw %}
@@ -40,16 +43,16 @@ CI job).
 
 | Integration | What it does | Guide |
 |---|---|---|
-| Claude Code plugin | Stop hook that blocks a stop when verification fails; `/nitelos:init`, `/nitelos:check` | [docs/claude-code.md](docs/claude-code.md) |
-| Collectors: git, junit, github, http, Playwright | Read-only evidence collection with caps, redaction and provenance | [docs/collectors.md](docs/collectors.md) |
-| MCP server | `verify_outcome`, host-pinned `collect`, read-only `describe_criteria` over stdio | [docs/mcp.md](docs/mcp.md) |
-| Inspect AI scorer | Verification as a `C`/`I`/`A` score with abstention-aware accuracy | [docs/inspect.md](docs/inspect.md) |
-| DeepEval metric | Deterministic 1/0 `NitelosOutcomeMetric` | [docs/deepeval.md](docs/deepeval.md) |
-| LangGraph node | `verify_outcome_node` with routing on the decision | [docs/langgraph.md](docs/langgraph.md) |
-| OpenTelemetry | One span per verification with allowlisted attributes | [docs/opentelemetry.md](docs/opentelemetry.md) |
+| Claude Code plugin | Stop hook that blocks a stop when verification fails; `/nitelos:init`, `/nitelos:check` | [docs/claude-code.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/claude-code.md) |
+| Collectors: git, junit, github, http, Playwright | Read-only evidence collection with caps, redaction and provenance | [docs/collectors.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/collectors.md) |
+| MCP server | `verify_outcome`, host-pinned `collect`, read-only `describe_criteria` over stdio | [docs/mcp.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/mcp.md) |
+| Inspect AI scorer | Verification as a `C`/`I`/`A` score with abstention-aware accuracy | [docs/inspect.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/inspect.md) |
+| DeepEval metric | Deterministic 1/0 `NitelosOutcomeMetric` | [docs/deepeval.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/deepeval.md) |
+| LangGraph node | `verify_outcome_node` with routing on the decision | [docs/langgraph.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/langgraph.md) |
+| OpenTelemetry | One span per verification with allowlisted attributes | [docs/opentelemetry.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/opentelemetry.md) |
 | Langfuse reporting (v0.3) | Categorical `nitelos_outcome` score per verdict, plus trace backfill from the public API | README section below |
 | Hook adapters: Codex, OpenCode (v0.3) | The verify pipeline behind Codex Stop hooks; observe-only reporting on OpenCode | README section below |
-| Pre-action gate (experimental) | Act/ask decision math from host-supplied confidence signals | [docs/gate.md](docs/gate.md) |
+| Pre-action gate (experimental) | Act/ask decision math from host-supplied confidence signals | [docs/gate.md](https://github.com/Gjusev/nitelos/blob/HEAD/docs/gate.md) |
 
 ## Try it
 

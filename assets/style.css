@@ -105,6 +105,8 @@ html[data-hero=ring] .hw,html[data-hero=reel] .hw{display:none}
 .num:hover{color:var(--accent)}
 .num:focus-visible{outline:2px solid var(--accent);outline-offset:6px;border-radius:4px}
 .unit{color:var(--muted);font-size:15px;margin-top:10px}
+.how-m{all:unset;cursor:pointer;color:var(--ink);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:.2em;white-space:nowrap}
+.how-m:hover{color:var(--accent)}.how-m:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
 .receipt{font-size:15px;overflow:hidden;max-height:0;transition:max-height .45s var(--out),margin .45s var(--out),padding .45s var(--out)}
 .fx.open .receipt{max-height:12em;margin-top:12px;background:var(--surface);padding:12px 14px;border-radius:var(--r)}
 .fx h3{font:600 24px/1.2 var(--serif);letter-spacing:-.02em;margin-top:24px}
@@ -131,8 +133,8 @@ html[data-hero=ring] .hw,html[data-hero=reel] .hw{display:none}
 .js .flow:not(.in) .node{opacity:0;transform:translateY(20px)}
 .js .flow:not(.in) .outs i{transform:scaleX(.2);opacity:0}
 .outs i{transition:transform .5s var(--out) 900ms,opacity .5s 900ms}
-.pulse{position:absolute;top:50%;left:0;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--accent);z-index:0;animation:travel 6s linear infinite;opacity:0}
-.flow.in~.pulse{opacity:1}
+.pulse{position:absolute;top:50%;left:0;width:12px;height:12px;margin-top:-6px;border-radius:50%;background:var(--accent);z-index:0;animation:travel 4s var(--ease) 3 both;animation-play-state:paused;opacity:0}
+.flow.in~.pulse{opacity:1;animation-play-state:running}
 @keyframes travel{from{transform:translateX(0)}to{transform:translateX(calc(100cqw - 12px))}}
 
 /* all projects */
@@ -209,6 +211,11 @@ html[data-hero=ring] .hw,html[data-hero=reel] .hw{display:none}
 .next .sub{font-size:17px;color:var(--ink);text-align:right}
 .next-name{display:block;font:600 clamp(48px,8vw,140px)/.95 var(--serif);letter-spacing:-.05em;transition:transform .5s var(--out)}
 .next:hover .next-name{transform:translateX(16px)}
+
+/* 404 */
+.nf{min-height:72svh;display:grid;align-content:center;gap:28px;padding-block:120px}
+.nf h1{font:600 clamp(40px,5.4vw,84px)/.95 var(--serif);letter-spacing:-.045em;max-width:14ch}
+.nf-code{font:600 clamp(96px,16vw,240px)/.8 var(--serif);letter-spacing:-.06em;color:var(--surface-2)}
 
 /* post pages */
 .post{padding-block:clamp(56px,8vw,120px) clamp(120px,12vw,180px)}

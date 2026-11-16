@@ -5,7 +5,7 @@ layout: default
 {% assign info = nil %}{% assign group = nil %}
 {% for g in d.groups %}{% for it in g.items %}{% if it.name == page.name %}{% assign info = it %}{% assign group = g %}{% endif %}{% endfor %}{% endfor %}
 {% assign focus = d.focus | where: "name", page.name | first %}
-{% assign summary = page.description %}{% if summary == "" %}{% assign summary = info.desc %}{% endif %}
+{% assign summary = page.summary %}{% if summary == "" or summary == nil %}{% assign summary = info.desc %}{% endif %}
 {% assign all = site.projects | sort: "pushed" | reverse %}
 {% for p in all %}{% if p.name == page.name %}{% assign i = forloop.index0 %}{% endif %}{% endfor %}
 {% assign ni = i | plus: 1 %}{% if ni >= all.size %}{% assign ni = 0 %}{% endif %}
@@ -45,25 +45,25 @@ layout: default
 
   <figure class="ph-media m">
     {% if page.video %}
-    <video src="{{ page.video | relative_url }}" poster="{{ page.image | relative_url }}" muted loop playsinline preload="none" data-inview aria-label="{{ page.name }} demo"></video>
-    {% elsif page.image %}
-    <img src="{{ page.image | relative_url }}" alt="{{ page.name }}: {{ summary | escape }}"{% if page.image_size %} width="{{ page.image_size[0] }}" height="{{ page.image_size[1] }}"{% endif %}>
+    <video src="{{ page.video | relative_url }}" poster="{{ page.still | relative_url }}" muted loop playsinline preload="none" data-inview aria-label="{{ page.name }} demo"></video>
+    {% elsif page.still %}
+    <img src="{{ page.still | relative_url }}" alt="{{ page.name }}: {{ summary | escape }}"{% if page.still_size %} width="{{ page.still_size[0] }}" height="{{ page.still_size[1] }}"{% endif %}>
     {% endif %}
   </figure>
 
   <div class="pb m">
     <article class="prose">{{ content }}</article>
     <aside class="figs">
-      {% if page.diagram %}<figure><img src="{{ page.diagram | relative_url }}" alt="Diagram from the {{ page.name }} repository" loading="lazy"><figcaption>How it works, from the repository.</figcaption></figure>{% endif %}
-      {% for f in page.figures %}<figure><img src="{{ f | relative_url }}" alt="Figure from the {{ page.name }} repository" loading="lazy"></figure>{% endfor %}
-      {% if page.video and page.image and page.image contains "still-" %}<figure><img src="{{ page.image | relative_url }}" alt="{{ page.name }} screenshot" loading="lazy"></figure>{% endif %}
+      {% if page.diagram %}<figure><img src="{{ page.diagram | relative_url }}" alt="Diagram of how {{ page.name }} works, from its repository"{% if page.diagram_size %} width="{{ page.diagram_size[0] }}" height="{{ page.diagram_size[1] }}"{% else %} width="1200" height="675"{% endif %} loading="lazy"><figcaption>Diagram from the repository.</figcaption></figure>{% endif %}
+      {% for f in page.figures %}<figure><img src="{{ f.src | relative_url }}" alt="Results figure from the {{ page.name }} repository"{% if f.size %} width="{{ f.size[0] }}" height="{{ f.size[1] }}"{% endif %} loading="lazy"></figure>{% endfor %}
+      {% if page.video and page.still and page.still contains "still-" %}<figure><img src="{{ page.still | relative_url }}" alt="{{ page.name }} screenshot"{% if page.still_size %} width="{{ page.still_size[0] }}" height="{{ page.still_size[1] }}"{% endif %} loading="lazy"></figure>{% endif %}
       {% if page.topics.size > 0 %}<p class="topics">{% for t in page.topics %}<span>{{ t }}</span>{% endfor %}</p>{% endif %}
     </aside>
   </div>
 
   <a class="next m" href="{{ nxt.url | relative_url }}">
     <span class="next-name">{{ nxt.name }} <span aria-hidden="true">→</span></span>
-    <span class="sub">Next project · {{ nxt.description | truncate: 90 }}</span>
+    <span class="sub">Next project. {{ nxt.summary | default: nxt.description | truncate: 110 }}</span>
   </a>
 </main>
 

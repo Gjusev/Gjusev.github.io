@@ -69,6 +69,10 @@ def media(name, branch, path, kind):
     out_dir.mkdir(parents=True, exist_ok=True)
     src = f"https://raw.githubusercontent.com/{USER}/{name}/{branch}/{path}"
     stem = Path(path).stem.lower().replace(" ", "-")
+    ext = ".svg" if path.endswith(".svg") else ".mp4" if path.endswith(".mp4") else ".webp"
+    final = out_dir / (f"{kind}.mp4" if ext == ".mp4" else f"{kind}-{stem}{ext}")
+    if final.exists() and not os.environ.get("FORCE"):
+        return "/" + final.relative_to(ROOT).as_posix()
     with tempfile.TemporaryDirectory() as tmp:
         raw = Path(tmp) / Path(path).name
         try:
@@ -95,6 +99,20 @@ def media(name, branch, path, kind):
             im = im.convert("RGBA" if im.mode in ("RGBA", "LA", "P") else "RGB")
             im.thumbnail((1600, 1600))
             im.save(dest, quality=82)
+    return "/" + dest.relative_to(ROOT).as_posix()
+
+
+def og_card(name, still):
+    """A 1200x630 JPG for link previews (LinkedIn does not show WebP)."""
+    if not still or still.endswith(".svg"):
+        return "/assets/og.png"
+    dest = OUT_MEDIA / name / "og.jpg"
+    im = Image.open(ROOT / still.lstrip("/")).convert("RGB")
+    W, H = 1200, 630
+    k = max(W / im.width, H / im.height)
+    im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
+    l, t = (im.width - W) // 2, (im.height - H) // 2
+    im.crop((l, t, l + W, t + H)).save(dest, quality=84)
     return "/" + dest.relative_to(ROOT).as_posix()
 
 
@@ -133,7 +151,34 @@ def clean(p):
     p = re.sub(r"!\[[^\]]*\]\([^)]*\)", "", p)               # images
     p = re.sub(r"<[^>]+>", "", p)                             # inline html
     p = re.sub(r"\]\((?!https?://|#)([^)]+)\)", lambda m: f"](https://github.com/{USER}/{CUR}/blob/HEAD/{m.group(1)})", p)
-    return p.strip()
+    p = re.sub(r"\[\]\([^)]*\)", "", p)                       # links left empty by a removed image
+    return dedash(p).strip()
+
+
+def dedash(t):
+    """No em/en dashes in visible copy: a dash after a bold lead becomes a colon, otherwise a comma."""
+    if not t:
+        return t
+    t = re.sub(r"(\*\*[^*]+\*\*)\s*(?:—|–|--)\s*", r"\1: ", t)
+    t = re.sub(r"(\d)\s*[–—]\s*(\d)", r"\1 to \2", t)
+    t = re.sub(r"\s*(?:—|–| -- )\s*", ", ", t)
+    return t
+
+
+SEEN = set()
+
+
+def unseen(p):
+    """Drop sentences the page has already said once."""
+    if p.lstrip().startswith(("-", "*", "1.", "|", "```")):
+        return p
+    out = []
+    for sen in re.split(r"(?<=[.!?])\s+", p):
+        key = re.sub(r"\W+", " ", sen).strip().lower()
+        if len(key) > 25 and key in SEEN:
+            continue
+        SEEN.add(key); out.append(sen)
+    return " ".join(out)
 
 
 def prose(p):
@@ -148,7 +193,7 @@ def extract(md):
     for i, (h, ps) in enumerate(secs):
         for p in ps:
             if table is None and p.startswith("|") and p.count("\n") >= 2:
-                table = "\n".join(p.splitlines()[:14])
+                table = "\n".join(clean(l) for l in p.splitlines()[:14])
             if code is None and p.startswith("```") and re.search(r"pip install|npm i|npx |uvx? |docker |git clone|pipx", p):
                 code = p if p.rstrip().endswith("```") else p + "\n```"
         if i <= 1 and not intro:
@@ -159,7 +204,22 @@ def extract(md):
         for h, ps in secs:
             intro = [clean(p) for p in ps if prose(p)][:2]
             if intro: break
+    SEEN.clear()
+    intro = [x for x in (unseen(p) for p in intro) if x.strip()]
+    how = [x for x in (unseen(p) for p in how) if x.strip()]
     return intro, how, table, code
+
+
+def seo(text, fallback=""):
+    """A meta description of 50 to 160 characters."""
+    t = re.sub(r"\s+", " ", text or fallback or "").strip()
+    if len(t) > 158:
+        cut = t[:158]
+        end = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
+        t = cut[:end + 1] if end > 60 else cut[:cut.rfind(" ")].rstrip(",;:") + "."
+    if len(t) < 50:
+        t = f"{t.rstrip('.')}. An open-source project by Youssef, AI product engineer in Siegen."
+    return t
 
 
 def yq(s):
@@ -167,7 +227,10 @@ def yq(s):
 
 
 def main(names):
-    global CUR
+    global CUR, OWN
+    import yaml
+    data = yaml.safe_load((ROOT / "_data" / "projects.yml").read_text(encoding="utf8"))
+    OWN = {it["name"]: it["desc"] for g in data["groups"] for it in g["items"]}
     OUT_MD.mkdir(exist_ok=True)
     for name in names:
         CUR = name
@@ -187,12 +250,13 @@ def main(names):
             import base64
             md = base64.b64decode(readme["content"]).decode("utf8", "replace").lstrip("﻿")
         intro, how, table, code = extract(md)
+        summary = dedash(meta.get("description") or "") or OWN.get(name, "")
         fm = {
-            "name": name, "description": meta.get("description") or "", "language": meta.get("language"),
+            "name": name, "summary": summary, "description": seo(summary, OWN.get(name)), "language": meta.get("language"),
             "stars": meta.get("stargazers_count", 0), "homepage": meta.get("homepage") or None,
             "license": (meta.get("license") or {}).get("spdx_id"), "pushed": meta["pushed_at"][:10],
-            "topics": meta.get("topics", [])[:6], "video": v, "image": img, "image_size": size_of(img),
-            "diagram": dia, "figures": more,
+            "topics": meta.get("topics", [])[:6], "video": v, "still": img, "still_size": size_of(img), "image": og_card(name, img),
+            "diagram": dia, "diagram_size": size_of(dia), "figures": [{"src": m, "size": size_of(m)} for m in more],
         }
         lines = ["---"] + [f"{k}: {yq(val)}" for k, val in fm.items()] + ["---", "{% raw %}"]
         if intro: lines += ["## What it is", ""] + [p + "\n" for p in intro]

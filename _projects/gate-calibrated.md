@@ -1,6 +1,7 @@
 ---
 name: "gate-calibrated"
-description: "Calibrated act/ask gate for tool-using agents' write actions, with conformal risk control. Open, reproducible evaluation on tau-bench retail, negative results included."
+summary: "Calibrated act/ask gate for tool-using agents' write actions, with conformal risk control. Open, reproducible evaluation on tau-bench retail, negative results included."
+description: "Calibrated act/ask gate for tool-using agents' write actions, with conformal risk control."
 language: "Python"
 stars: 1
 homepage: null
@@ -8,9 +9,11 @@ license: "MIT"
 pushed: "2026-10-14"
 topics: ["ai-agents", "calibration", "conformal-prediction", "human-in-the-loop", "langgraph", "llm"]
 video: "/assets/projects/gate-calibrated/demo.mp4"
-image: "/assets/projects/gate-calibrated/still-poster.webp"
-image_size: [1600, 900]
+still: "/assets/projects/gate-calibrated/still-poster.webp"
+still_size: [1600, 900]
+image: "/assets/projects/gate-calibrated/og.jpg"
 diagram: "/assets/projects/gate-calibrated/diagram-curve.webp"
+diagram_size: [1050, 750]
 figures: []
 ---
 {% raw %}

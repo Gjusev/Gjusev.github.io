@@ -1,5 +1,6 @@
 ---
 name: "laya-router"
+summary: "OpenAI-compatible proxy that routes prompts to cheap or frontier LLMs using a local System 1 decision model (laya)"
 description: "OpenAI-compatible proxy that routes prompts to cheap or frontier LLMs using a local System 1 decision model (laya)"
 language: "Python"
 stars: 2
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-09-30"
 topics: ["cost-optimization", "laya", "llm-routing", "openai-api", "proxy", "system-one"]
 video: null
-image: "/assets/projects/laya-router/still-social-preview-art.webp"
-image_size: [1600, 841]
+still: "/assets/projects/laya-router/still-social-preview-art.webp"
+still_size: [1600, 841]
+image: "/assets/projects/laya-router/og.jpg"
 diagram: "/assets/projects/laya-router/diagram-how-it-works.svg"
+diagram_size: null
 figures: []
 ---
 {% raw %}
@@ -24,9 +27,9 @@ Routing runs on your machine and costs **$0 in API charges**. It is deliberately
 
 The decision pipeline has three layers, from cheapest to most cautious:
 
-1. **Fast path** -- trivial greetings and zero-content prompts match a regex and go directly to the cheap tier without model inference.
-2. **Local laya decision** -- one forward pass labels the prompt `simple`, `standard`, or `complex` and returns a calibrated confidence.
-3. **Confidence gate** -- complex, unknown, or low-confidence requests go to the frontier tier. The default favors answer quality when the router is unsure.
+1. **Fast path**: trivial greetings and zero-content prompts match a regex and go directly to the cheap tier without model inference.
+2. **Local laya decision**: one forward pass labels the prompt `simple`, `standard`, or `complex` and returns a calibrated confidence.
+3. **Confidence gate**: complex, unknown, or low-confidence requests go to the frontier tier. The default favors answer quality when the router is unsure.
 
 ## Results
 

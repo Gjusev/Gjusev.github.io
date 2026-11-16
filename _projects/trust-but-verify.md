@@ -1,6 +1,7 @@
 ---
 name: "trust-but-verify"
-description: "Four ways to check a coding agent's work, measured on pass rate and token cost. Test gate: +5 pts at 1.5x tokens; reviewer: +5 pts at 3.56x. HumanEval, glm-4.5-flash."
+summary: "Four ways to check a coding agent's work, measured on pass rate and token cost. Test gate: +5 pts at 1.5x tokens; reviewer: +5 pts at 3.56x. HumanEval, glm-4.5-flash."
+description: "Four ways to check a coding agent's work, measured on pass rate and token cost. Test gate: +5 pts at 1.5x tokens; reviewer: +5 pts at 3.56x."
 language: "Python"
 stars: 1
 homepage: null
@@ -8,10 +9,12 @@ license: "MIT"
 pushed: "2026-11-02"
 topics: ["benchmark", "code-generation", "humaneval", "llm-agents", "python", "verification"]
 video: "/assets/projects/trust-but-verify/demo.mp4"
-image: "/assets/projects/trust-but-verify/poster.webp"
-image_size: [960, 540]
+still: "/assets/projects/trust-but-verify/poster.webp"
+still_size: [960, 540]
+image: "/assets/projects/trust-but-verify/og.jpg"
 diagram: "/assets/projects/trust-but-verify/diagram-tbv-arms.webp"
-figures: ["/assets/projects/trust-but-verify/figure-tbv-results.webp"]
+diagram_size: [1600, 760]
+figures: [{"src": "/assets/projects/trust-but-verify/figure-tbv-results.webp", "size": [1600, 710]}]
 ---
 {% raw %}
 ## What it is

@@ -1,5 +1,6 @@
 ---
 name: "treeseek"
+summary: "Retrieval that walks a topic tree: 74 vector comparisons per query instead of 3000, same Recall@1. Measured against flat dense retrieval on 20 Newsgroups."
 description: "Retrieval that walks a topic tree: 74 vector comparisons per query instead of 3000, same Recall@1. Measured against flat dense retrieval on 20 Newsgroups."
 language: "Python"
 stars: 1
@@ -8,10 +9,12 @@ license: "MIT"
 pushed: "2026-11-02"
 topics: ["embeddings", "hierarchical-clustering", "information-retrieval", "python", "rag", "retrieval"]
 video: "/assets/projects/treeseek/demo.mp4"
-image: "/assets/projects/treeseek/poster.webp"
-image_size: [960, 540]
+still: "/assets/projects/treeseek/poster.webp"
+still_size: [960, 540]
+image: "/assets/projects/treeseek/og.jpg"
 diagram: "/assets/projects/treeseek/diagram-treeseek-descent.webp"
-figures: ["/assets/projects/treeseek/figure-treeseek-results.webp"]
+diagram_size: [1600, 820]
+figures: [{"src": "/assets/projects/treeseek/figure-treeseek-results.webp", "size": [1600, 640]}]
 ---
 {% raw %}
 ## What it is

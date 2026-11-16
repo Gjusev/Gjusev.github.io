@@ -1,6 +1,7 @@
 ---
 name: "somatriq"
-description: "Somatriq — self-hosted personal biometric intelligence platform"
+summary: "Somatriq, self-hosted personal biometric intelligence platform"
+description: "Somatriq, self-hosted personal biometric intelligence platform"
 language: "Python"
 stars: 1
 homepage: null
@@ -8,9 +9,11 @@ license: "NOASSERTION"
 pushed: "2026-09-24"
 topics: []
 video: "/assets/projects/somatriq/demo.mp4"
-image: "/assets/projects/somatriq/still-dashboard-desktop.webp"
-image_size: [1440, 900]
+still: "/assets/projects/somatriq/still-dashboard-desktop.webp"
+still_size: [1440, 900]
+image: "/assets/projects/somatriq/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}

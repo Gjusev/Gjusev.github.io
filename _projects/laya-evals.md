@@ -1,6 +1,7 @@
 ---
 name: "laya-evals"
-description: "LLM-as-judge and calibration auditing for System 1 decision models: rubric scoring in CI plus reliability diagrams, ECE and coverage/accuracy thresholds by option count"
+summary: "LLM-as-judge and calibration auditing for System 1 decision models: rubric scoring in CI plus reliability diagrams, ECE and coverage/accuracy thresholds by option count"
+description: "LLM-as-judge and calibration auditing for System 1 decision models: rubric scoring in CI plus reliability diagrams, ECE and coverage/accuracy thresholds by."
 language: "Python"
 stars: 1
 homepage: null
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-10-01"
 topics: ["ai-evaluation", "calibration", "ci-cd", "laya", "llm-evals", "system-one"]
 video: "/assets/projects/laya-evals/demo.mp4"
-image: "/assets/projects/laya-evals/still-social-preview.webp"
-image_size: [1200, 630]
+still: "/assets/projects/laya-evals/still-social-preview.webp"
+still_size: [1200, 630]
+image: "/assets/projects/laya-evals/og.jpg"
 diagram: "/assets/projects/laya-evals/diagram-pipeline.svg"
+diagram_size: null
 figures: []
 ---
 {% raw %}

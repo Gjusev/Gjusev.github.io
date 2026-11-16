@@ -1,6 +1,7 @@
 ---
 title: Who checks the coding agent's work?
-description: Four verification strategies, measured on pass rate and token cost.
+description: Four ways to check a coding agent's work, measured on pass rate and token cost. A test gate buys the same gain as a reviewer at less than half the tokens.
+image: /assets/projects/trust-but-verify/og.jpg
 ---
 
 > **Draft placeholder.** Numbers below come from the [trust-but-verify](https://github.com/Gjusev/trust-but-verify) README (HumanEval, glm-4.5-flash). Rewrite in your own words, add the method and caveats, then delete this note.

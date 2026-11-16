@@ -1,5 +1,6 @@
 ---
 name: "hard-mode"
+summary: "Your beautiful demo meets real life. Local Playwright runner + agent skill that test a web app under difficult UI scenarios with reproducible evidence."
 description: "Your beautiful demo meets real life. Local Playwright runner + agent skill that test a web app under difficult UI scenarios with reproducible evidence."
 language: "TypeScript"
 stars: 1
@@ -8,10 +9,12 @@ license: "MIT"
 pushed: "2026-10-09"
 topics: ["accessibility", "agent-skills", "claude-code", "codex", "playwright", "testing"]
 video: null
-image: "/assets/projects/hard-mode/still-compare.webp"
-image_size: [1600, 1500]
+still: "/assets/projects/hard-mode/still-compare.webp"
+still_size: [1600, 1500]
+image: "/assets/projects/hard-mode/og.jpg"
 diagram: null
-figures: ["/assets/projects/hard-mode/figure-report-gallery.webp"]
+diagram_size: null
+figures: [{"src": "/assets/projects/hard-mode/figure-report-gallery.webp", "size": [1600, 1263]}]
 ---
 {% raw %}
 ## What it is

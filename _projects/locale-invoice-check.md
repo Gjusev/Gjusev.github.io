@@ -1,5 +1,6 @@
 ---
 name: "locale-invoice-check"
+summary: "Matched-pair EN/DE/ES invoice extraction regression harness with deterministic CI gates"
 description: "Matched-pair EN/DE/ES invoice extraction regression harness with deterministic CI gates"
 language: "Python"
 stars: 1
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-10-05"
 topics: ["ci-cd", "document-ai", "evaluation", "invoice-processing", "llm", "machine-learning"]
 video: null
-image: "/assets/projects/locale-invoice-check/still-social-preview.webp"
-image_size: [1280, 640]
+still: "/assets/projects/locale-invoice-check/still-social-preview.webp"
+still_size: [1280, 640]
+image: "/assets/projects/locale-invoice-check/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}
@@ -19,8 +22,7 @@ figures: []
 [Quick start](#quick-start-no-credentials) · [Metrics](#what-it-measures) ·
 [Python API](#python-api) · [Run on Kaggle](https://www.kaggle.com/code/gjusev/locale-invoice-check-demo)
 
-An invoice parser can read `1,234.56` correctly and misread `1.234,56`.
-This Python CLI makes that regression reproducible: render the **same synthetic
+An invoice parser can read `1,234.56` correctly and misread `1.234,56`. This Python CLI makes that regression reproducible: render the **same synthetic
 invoice data as English, German, and Spanish PNGs**, run your extractor, and
 compare field accuracy with deterministic CI gates.
 

@@ -1,5 +1,6 @@
 ---
 name: "MK-SH-V"
+summary: "MK-SH-V: a 260M visual decision model. Calibrated probabilities, a choice, and a refusal below a validated gate, over document pages and screenshots."
 description: "MK-SH-V: a 260M visual decision model. Calibrated probabilities, a choice, and a refusal below a validated gate, over document pages and screenshots."
 language: "Python"
 stars: 5
@@ -8,10 +9,12 @@ license: "Apache-2.0"
 pushed: "2026-10-31"
 topics: ["abstention", "calibration", "decision-model", "document-understanding", "gui-agents", "selective-prediction"]
 video: "/assets/projects/MK-SH-V/demo.mp4"
-image: "/assets/projects/MK-SH-V/poster.webp"
-image_size: [960, 540]
+still: "/assets/projects/MK-SH-V/poster.webp"
+still_size: [960, 540]
+image: "/assets/projects/MK-SH-V/og.jpg"
 diagram: null
-figures: ["/assets/projects/MK-SH-V/figure-cord-receipt-1.webp"]
+diagram_size: null
+figures: [{"src": "/assets/projects/MK-SH-V/figure-cord-receipt-1.webp", "size": [675, 900]}]
 ---
 {% raw %}
 ## What it is
@@ -39,8 +42,7 @@ together, each option is marked inline and scored by a shared head, and the
 softmax runs over the valid options only. The temperature T only rescales
 confidence, so it never changes a choice. The gate tau was fitted on a
 calibration split (E48, by the E42 protocol) as the smallest threshold whose
-Clopper-Pearson 95 % upper bound on selective risk stays within a 5 % budget.
-Images whose longest side is under 1,024 px are first enlarged to it
+Clopper-Pearson 95 % upper bound on selective risk stays within a 5 % budget. Images whose longest side is under 1,024 px are first enlarged to it
 (Lanczos), exactly as in training and calibration (E46). It is **not** a chat
 model and generates no text.
 

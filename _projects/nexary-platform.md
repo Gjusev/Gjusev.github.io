@@ -1,6 +1,7 @@
 ---
 name: "nexary-platform"
-description: "On-premise enterprise AI platform: multi-provider LLM chat, hybrid RAG (dense + BM25 + cross-encoder rerank), SYSLOG-auditable — runs inside customer networks"
+summary: "On-premise enterprise AI platform: multi-provider LLM chat, hybrid RAG (dense + BM25 + cross-encoder rerank), SYSLOG-auditable, runs inside customer networks"
+description: "On-premise enterprise AI platform: multi-provider LLM chat, hybrid RAG (dense + BM25 + cross-encoder rerank), SYSLOG-auditable, runs inside customer networks"
 language: "TypeScript"
 stars: 1
 homepage: null
@@ -8,9 +9,11 @@ license: "MIT"
 pushed: "2026-10-30"
 topics: []
 video: "/assets/projects/nexary-platform/demo.mp4"
-image: "/assets/projects/nexary-platform/still-feature_chat_mockup_light.webp"
-image_size: [1024, 1024]
+still: "/assets/projects/nexary-platform/still-feature_chat_mockup_light.webp"
+still_size: [1024, 1024]
+image: "/assets/projects/nexary-platform/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}

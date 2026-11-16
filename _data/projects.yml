@@ -1,108 +1,109 @@
-# Every public repo, grouped. Descriptions follow each repo's own description.
+# Every public repo, grouped. Copy is written for a hiring manager or a client deciding whether to talk to me:
+# say what it does for someone, in plain words, with a number only when it is measured.
 # New repos you push appear automatically under "New on GitHub" until you add them here.
 # Optional per project: metric (short), links (label: url).
 
 focus:
   - name: forecast-arena
     img: forecast-chart.webp
-    alt: Bar chart of forecasting error per model, German day-ahead electricity price
-    desc: Eight forecasting models against four real German arenas. Reproducible benchmarks and honest results.
+    alt: Bar chart of forecast error per model for the German day-ahead electricity price
+    desc: Eight forecasting models tested on German train delays and day-ahead power prices. The losses are published next to the wins.
     value: "19.27"
-    unit: MAE, best of eight models
-    receipt: Chronos-2 on day-ahead price, German bidding zone, pooled over 24 delivery hours. The seasonal naive baseline scores 28.20.
+    unit: lowest price-forecast error (MAE) of the eight
+    receipt: Chronos-2 on the German day-ahead price, averaged over all 24 delivery hours. The simple seasonal baseline scores 28.20.
   - name: laya-triage
     img: laya-triage.webp
     alt: Poster reading "At what confidence do you let a model close a ticket? 0.84. Measured."
-    desc: Multilingual support-ticket triage with a local decision model that knows when to hand off to a person.
+    desc: Routes support tickets in any language with a local model, and hands a ticket to a person when the model is not sure.
     value: "0.84"
-    unit: confidence needed to close a ticket
-    receipt: Measured on the BANKING77 test set, seed 13, n=200.
-    links: {App: "https://laya-triage-8spuhg8fa5qjy8hiteomux.streamlit.app/", Model: "https://huggingface.co/Gjusev/laya-triage-banking77"}
+    unit: confidence the model needs before it closes a ticket
+    receipt: Measured on the BANKING77 test set, seed 13, 200 tickets.
+    links: {Try the app: "https://laya-triage-8spuhg8fa5qjy8hiteomux.streamlit.app/", Model: "https://huggingface.co/Gjusev/laya-triage-banking77"}
   - name: voice-evals
     img: voice-evals-demo.webp
     video: voice-evals-demo.mp4
-    alt: "voice-evals demo recording, a replayed call scored for transcription, latency and interruptions"
-    desc: Replay calls or probe a live voice agent over WebSocket, and gate CI on WER, latency, barge-in and task outcomes.
+    alt: "voice-evals demo: a replayed call scored for transcription, latency and interruptions"
+    desc: Tests a voice agent the way callers use it. It replays recorded calls, interrupts the agent live, and fails the build when quality slips.
     value: "4"
-    unit: CI gates for every voice agent
-    receipt: Word error rate, latency, barge-in behaviour and task outcome. Replay recorded calls or probe a live agent over WebSocket.
+    unit: quality gates on every release
+    receipt: Word error rate, response time, behaviour when interrupted, and whether the caller's task got done.
     links: {PyPI: "https://pypi.org/project/voice-evals/", Kaggle: "https://www.kaggle.com/code/gjusev/voice-evals-offline-benchmark"}
 
 groups:
   - title: Benchmarks and evaluation
-    note: Measuring models and agents against real data, with the bad results published too.
+    note: Tests on real data, and the tools to run them on every commit.
     items:
-      - {name: forecast-arena, desc: "AI forecasting models against reality: real-world datasets, reproducible runs.", metric: "19.27 MAE"}
-      - {name: xrechnung-bench, desc: "Local vision models produce XRechnung 3.0.2, checked with the official KoSIT validator."}
-      - {name: voxentity-eu, desc: "DE/FR benchmark of exact spoken-entity capture over a simulated telephone channel."}
-      - {name: voice-evals, desc: "Replay scoring, live probes and CI gates for voice agents.", links: {PyPI: "https://pypi.org/project/voice-evals/"}}
+      - {name: forecast-arena, desc: "Eight forecasting models on German train delays and power prices, scored against simple baselines.", metric: "19.27 MAE"}
+      - {name: xrechnung-bench, desc: "Can a local vision model turn an invoice into a valid XRechnung 3.0.2? Checked with the official KoSIT validator."}
+      - {name: voxentity-eu, desc: "How exactly do speech models catch names, phone numbers and dates over a phone line? A German and French benchmark."}
+      - {name: voice-evals, desc: "Replays recorded calls, interrupts live agents, and fails the build when quality slips.", links: {PyPI: "https://pypi.org/project/voice-evals/"}}
       - {name: trust-but-verify, desc: "Four ways to check a coding agent's work, priced in pass rate and tokens.", metric: "+5 pts at 1.5×"}
-      - {name: reliagate, desc: "Statistically sound CI gates for agents run many times: pass^k, McNemar, Wilson, SPRT."}
-      - {name: nitelos, desc: "Checks whether an AI agent really did what it says it did. Python SDK.", links: {PyPI: "https://pypi.org/project/nitelos/"}}
-      - {name: vision-input-check, desc: "Regression tests for images sent to vision LLM APIs, with variance-aware scoring."}
-      - {name: locale-invoice-check, desc: "Matched-pair EN/DE/ES invoice extraction regression harness with deterministic gates."}
-      - {name: laya-evals, desc: "LLM-as-judge and calibration audits for decision models: reliability diagrams, ECE.", links: {PyPI: "https://pypi.org/project/laya-evals/"}}
-      - {name: laya-evals-gate, desc: "Fails the build when accuracy drops or calibration worsens against a baseline."}
-      - {name: clef-evals, desc: "Calibration-first evaluation for Cloudflare's Clef decision models.", links: {PyPI: "https://pypi.org/project/clef-evals/"}}
+      - {name: reliagate, desc: "Tells you whether an agent really improved, from repeated runs and sound statistics (pass^k, McNemar, SPRT)."}
+      - {name: nitelos, desc: "Checks that an AI agent really did what it says it did. Python SDK.", links: {PyPI: "https://pypi.org/project/nitelos/"}}
+      - {name: vision-input-check, desc: "Regression tests for vision models: does a compressed copy of the image change the answer?"}
+      - {name: locale-invoice-check, desc: "The same invoice in English, German and Spanish. Does extraction agree on all three?"}
+      - {name: laya-evals, desc: "Audits how far a decision model's confidence can be trusted, with reliability diagrams in CI.", links: {PyPI: "https://pypi.org/project/laya-evals/"}}
+      - {name: laya-evals-gate, desc: "Fails the build when accuracy drops or confidence gets less trustworthy than the committed baseline."}
+      - {name: clef-evals, desc: "The same confidence audit for Cloudflare's Clef decision models.", links: {PyPI: "https://pypi.org/project/clef-evals/"}}
 
   - title: Agent reliability
-    note: Deciding when an agent may act, and spending fewer tokens doing it.
+    note: When an agent may act on its own, and how to make each decision cheaper.
     items:
-      - {name: gate-calibrated, desc: "Calibrated act/ask gate for agents' write actions, with conformal risk control."}
-      - {name: laya-warden, desc: "Allow, hold or block every tool call, with reasons and confidence."}
-      - {name: zerocall, desc: "Skip the model call when nothing changed: guarded decision reuse.", metric: "4 → 0 calls"}
+      - {name: gate-calibrated, desc: "Decides when an agent may write on its own and when it has to ask. Negative results included."}
+      - {name: laya-warden, desc: "Allows, holds or blocks every tool call an agent makes, and says why."}
+      - {name: zerocall, desc: "Skips the model call when nothing has changed since the last decision.", metric: "4 → 0 calls"}
 
   - title: Paper reproductions
-    note: Open implementations of recent arXiv papers, offline and mostly dependency-free.
+    note: Recent arXiv papers rebuilt from scratch, runnable offline, most with no dependencies.
     items:
-      - {name: decision-gate, desc: "Allow/ask/block gating of tool calls; tracks false blocks and dangerous allows.", links: {Paper: "https://arxiv.org/abs/2610.38620"}}
-      - {name: routed-memory, desc: "Clustered memory with routed retrieval for a persistent, GDPR-friendly assistant.", links: {Paper: "https://arxiv.org/abs/2610.38796"}}
-      - {name: agency-bench, desc: "Harness-cost benchmark: harness knobs move cost, not success.", links: {Paper: "https://arxiv.org/abs/2611.12122"}}
-      - {name: compact-bench, desc: "Does aggressive context compaction keep accuracy while collapsing peak context?", links: {Paper: "https://arxiv.org/abs/2611.05306"}}
-      - {name: wikitrace-repro, desc: "Evidence-linked agent memory with degradation detection.", links: {Paper: "https://arxiv.org/abs/2611.14320"}}
-      - {name: somem-repro, desc: "Can LLM agents organise their own memory? A stdlib-only reproduction.", links: {Paper: "https://arxiv.org/abs/2611.11929"}}
-      - {name: skillpp, desc: "First open implementation of Skill++: routing-aware skill refinement.", links: {Paper: "https://arxiv.org/abs/2611.00544"}}
-      - {name: drex-evals, desc: "Accuracy and calibration for Drex decision models on typed decision suites.", links: {Paper: "https://arxiv.org/abs/2611.07854"}}
+      - {name: decision-gate, desc: "Allow, ask or block for every tool call. Counts false blocks and dangerous allows.", links: {Paper: "https://arxiv.org/abs/2610.38620"}}
+      - {name: routed-memory, desc: "Clustered memory with routed retrieval, for a local assistant that remembers between sessions.", links: {Paper: "https://arxiv.org/abs/2610.38796"}}
+      - {name: agency-bench, desc: "What really drives agent cost? Harness settings change the bill, not the success rate.", links: {Paper: "https://arxiv.org/abs/2611.12122"}}
+      - {name: compact-bench, desc: "Does aggressive context compaction keep accuracy while it cuts peak context?", links: {Paper: "https://arxiv.org/abs/2611.05306"}}
+      - {name: wikitrace-repro, desc: "Agent memory linked to its evidence, checked before every action.", links: {Paper: "https://arxiv.org/abs/2611.14320"}}
+      - {name: somem-repro, desc: "Can agents organise their own memory? Reproduced with the standard library only.", links: {Paper: "https://arxiv.org/abs/2611.11929"}}
+      - {name: skillpp, desc: "First open implementation of Skill++, which rewrites skill descriptions so agents pick the right one.", links: {Paper: "https://arxiv.org/abs/2611.00544"}}
+      - {name: drex-evals, desc: "Accuracy and confidence checks for Drex decision models, offline.", links: {Paper: "https://arxiv.org/abs/2611.07854"}}
 
   - title: Decision models, routing and retrieval
     note: Small local models that decide fast, say how sure they are, and refuse when they should.
     items:
-      - {name: MK-SH-V, desc: "A 260M visual decision model that refuses below a validated gate.", metric: "260M"}
-      - {name: MK-SH-1, desc: "Small local decision models with calibrated confidence and abstention. Early."}
-      - {name: laya-triage, desc: "Multilingual ticket triage with confidence-based escalation.", metric: "0.84"}
-      - {name: treeseek, desc: "Retrieval that walks a topic tree, same Recall@1 as flat search.", metric: "74 vs 3,000"}
-      - {name: laya-compactor, desc: "One local forward pass scores every retrieved chunk; the budget decides.", metric: "−70% tokens", links: {PyPI: "https://pypi.org/project/laya-compactor/"}}
-      - {name: clef-compactor, desc: "Query-aware RAG context compaction with Cloudflare Clef.", links: {PyPI: "https://pypi.org/project/clef-compactor/"}}
-      - {name: laya-router, desc: "OpenAI-compatible proxy that routes prompts to cheap or frontier LLMs.", links: {PyPI: "https://pypi.org/project/laya-router/"}}
+      - {name: MK-SH-V, desc: "A 260M model that reads documents and screenshots, gives calibrated odds and refuses when unsure.", metric: "260M"}
+      - {name: MK-SH-1, desc: "Small local decision models that know when to abstain. Early stage."}
+      - {name: laya-triage, desc: "Routes tickets in any language and escalates the ones it is not sure about.", metric: "0.84"}
+      - {name: treeseek, desc: "Search that walks a topic tree instead of comparing every vector, with the same top-1 accuracy.", metric: "74 vs 3,000"}
+      - {name: laya-compactor, desc: "Trims retrieved context to a token budget in one local pass, without losing answer quality.", metric: "−70% tokens", links: {PyPI: "https://pypi.org/project/laya-compactor/"}}
+      - {name: clef-compactor, desc: "The same trimming with Cloudflare's Clef model.", links: {PyPI: "https://pypi.org/project/clef-compactor/"}}
+      - {name: laya-router, desc: "Sends each prompt to a cheap or a frontier model. A drop-in, OpenAI-compatible proxy.", links: {PyPI: "https://pypi.org/project/laya-router/"}}
       - {name: clef-router, desc: "The same routing with Cloudflare's Clef decision model.", links: {PyPI: "https://pypi.org/project/clef-router/"}}
-      - {name: laya-phishield, desc: "Explainable phishing detection: semantic signals plus deterministic header and URL checks.", links: {PyPI: "https://pypi.org/project/laya-phishield/"}}
+      - {name: laya-phishield, desc: "Phishing detection that explains itself: language signals plus header and link checks.", links: {PyPI: "https://pypi.org/project/laya-phishield/"}}
 
   - title: Developer tools
-    note: For people building with coding agents.
+    note: For people who build with coding agents and want to know what they shipped.
     items:
-      - {name: skill-issue, desc: "Do your agent skills help, or just take up context? Runs a task with and without.", links: {npm: "https://www.npmjs.com/package/skill-issue-tool"}}
-      - {name: hard-mode, desc: "Your demo meets real life: Playwright scenarios with reproducible evidence."}
-      - {name: i-didnt-write-this, desc: "Vibe-coded it? Turn one feature into an interactive, evidence-backed lesson."}
+      - {name: skill-issue, desc: "Do your agent skills help, or only use up context? Runs the task with and without and shows the difference.", links: {npm: "https://www.npmjs.com/package/skill-issue-tool"}}
+      - {name: hard-mode, desc: "Tests a web app under difficult conditions, such as very long text, and keeps the evidence."}
+      - {name: i-didnt-write-this, desc: "Vibe-coded it? Turn one feature into an interactive lesson built from your own code."}
 
   - title: Privacy and security
-    note: DSGVO-first tooling.
+    note: For teams that answer to the DSGVO, or to their own legal department.
     items:
-      - {name: datenmaske-skills, desc: "German PII detection and redaction skills for coding agents."}
-      - {name: redaction-ci, desc: "Fails CI when a committed PDF still contains the text it pretends to redact."}
-      - {name: piracy-watch, desc: "Finds where your software is cracked and drafts the DMCA takedown kit."}
+      - {name: datenmaske-skills, desc: "Lets coding agents find and redact German personal data, plus a DSGVO checklist for pull requests."}
+      - {name: redaction-ci, desc: "Fails CI when a committed PDF still contains the text it claims to have redacted."}
+      - {name: piracy-watch, desc: "Finds cracked copies of your software and drafts the DMCA takedown."}
 
   - title: Products and apps
-    note: Full applications, self-hosted where it matters.
+    note: Complete applications, most of them self-hosted.
     items:
-      - {name: folio, desc: "Self-hosted scientific LaTeX editor.", links: {Live: "https://folio.mokka-agentur.de"}}
-      - {name: note-lm, desc: "Research notebook: ingest PDFs, videos and pages, chat with citations across all of them."}
-      - {name: nexary-platform, desc: "On-premise AI platform: multi-provider chat, hybrid RAG, SYSLOG-auditable."}
-      - {name: nexary, desc: "Trilingual DE/EN/ES marketing site for that platform. Next.js 15, WCAG AA."}
-      - {name: heizpro-ki, desc: "A German voice agent that answers real sales calls for a heating business.", links: {Demo: "https://mischa.mokka-dev.de"}}
-      - {name: studio-command-center, desc: "Fitness-studio operations: inventory, maintenance, staff tasks with photo proof."}
-      - {name: somatriq, desc: "Self-hosted personal biometric data with traceable calculations."}
-      - {name: maqrivo, desc: "Nutrition, meal planning and grocery optimisation."}
-      - {name: falschinfo-radar, desc: "Finds nutrition-myth videos by reach, extracts the false claim, drafts the correction."}
+      - {name: folio, desc: "A self-hosted LaTeX editor for scientific papers. Every AI change arrives as a diff you approve.", links: {Live: "https://folio.mokka-agentur.de"}}
+      - {name: note-lm, desc: "A local research notebook. Import PDFs, videos and web pages, then ask questions and get cited answers."}
+      - {name: nexary-platform, desc: "An AI platform that runs inside the customer's network: chat with several providers, hybrid search, audit logs."}
+      - {name: nexary, desc: "Its marketing site in German, English and Spanish. Next.js 15, WCAG AA."}
+      - {name: heizpro-ki, desc: "A German voice agent that answers the phone for a heating company while the team is out on jobs.", links: {Demo: "https://mischa.mokka-dev.de"}}
+      - {name: studio-command-center, desc: "Runs a fitness studio: stock, machine maintenance, and staff tasks with photo proof."}
+      - {name: somatriq, desc: "Keeps your raw wearable data and shows how every daily score was calculated."}
+      - {name: maqrivo, desc: "Plans meals from your nutrition targets and real supermarket prices."}
+      - {name: falschinfo-radar, desc: "Finds nutrition myths in videos with reach, pins down the false claim and drafts the correction."}
 
 links:
   - {label: LinkedIn, url: "https://www.linkedin.com/in/youssef-o-6b93611b7/"}

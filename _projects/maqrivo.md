@@ -1,5 +1,6 @@
 ---
 name: "maqrivo"
+summary: "Personal nutrition, meal planning, grocery optimization and supermarket intelligence"
 description: "Personal nutrition, meal planning, grocery optimization and supermarket intelligence"
 language: "TypeScript"
 stars: 1
@@ -8,9 +9,11 @@ license: "MIT"
 pushed: "2026-09-24"
 topics: []
 video: "/assets/projects/maqrivo/demo.mp4"
-image: "/assets/projects/maqrivo/still-planner.webp"
-image_size: [1280, 800]
+still: "/assets/projects/maqrivo/still-planner.webp"
+still_size: [1280, 800]
+image: "/assets/projects/maqrivo/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}

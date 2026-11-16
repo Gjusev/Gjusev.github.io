@@ -1,5 +1,6 @@
 ---
 name: "redaction-ci"
+summary: "GitHub Action that fails CI when a committed PDF still contains the text it pretends to have redacted. gitleaks, but for PDFs."
 description: "GitHub Action that fails CI when a committed PDF still contains the text it pretends to have redacted. gitleaks, but for PDFs."
 language: "Python"
 stars: 0
@@ -8,9 +9,11 @@ license: "MIT"
 pushed: "2026-11-12"
 topics: ["ci", "code-quality", "github-actions", "pdf", "redaction", "security"]
 video: null
-image: "/assets/projects/redaction-ci/still-banner.webp"
-image_size: [1280, 640]
+still: "/assets/projects/redaction-ci/still-banner.webp"
+still_size: [1280, 640]
+image: "/assets/projects/redaction-ci/og.jpg"
 diagram: null
+diagram_size: null
 figures: []
 ---
 {% raw %}
@@ -19,8 +22,7 @@ figures: []
 **gitleaks, but for PDFs.** A GitHub Action that fails the build the moment a
 committed PDF still contains the text it pretends to have redacted.
 
-Drawing a black rectangle over a paragraph does not remove the paragraph.
-The text stays in the PDF content stream, one copy-paste away for anyone
+Drawing a black rectangle over a paragraph does not remove the paragraph. The text stays in the PDF content stream, one copy-paste away for anyone
 who opens the file. Redaction-CI catches that before it reaches your
 repository, plus every other classic way a "redacted" PDF leaks: unapplied
 redaction annotations, invisible or camouflaged text layers, text dragged

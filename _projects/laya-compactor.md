@@ -1,5 +1,6 @@
 ---
 name: "laya-compactor"
+summary: "Cut 70% of RAG context tokens with zero answer-quality loss, measured: one local forward pass scores every retrieved chunk and the budget decides"
 description: "Cut 70% of RAG context tokens with zero answer-quality loss, measured: one local forward pass scores every retrieved chunk and the budget decides"
 language: "Python"
 stars: 1
@@ -8,9 +9,11 @@ license: "Apache-2.0"
 pushed: "2026-09-30"
 topics: ["context-compaction", "information-retrieval", "langchain", "laya", "llamaindex", "llm"]
 video: "/assets/projects/laya-compactor/demo.mp4"
-image: "/assets/projects/laya-compactor/still-brag-poster.webp"
-image_size: [1600, 900]
+still: "/assets/projects/laya-compactor/still-brag-poster.webp"
+still_size: [1600, 900]
+image: "/assets/projects/laya-compactor/og.jpg"
 diagram: "/assets/projects/laya-compactor/diagram-eval-summary.svg"
+diagram_size: null
 figures: []
 ---
 {% raw %}

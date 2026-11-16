@@ -1,6 +1,7 @@
 ---
 name: "studio-command-center"
-description: "Multi-tenant fitness-studio operations: inventory, machine maintenance, staff tasks with photo proof and audit trail — Next.js 15, Better Auth, PostgreSQL"
+summary: "Multi-tenant fitness-studio operations: inventory, machine maintenance, staff tasks with photo proof and audit trail, Next.js 15, Better Auth, PostgreSQL"
+description: "Multi-tenant fitness-studio operations: inventory, machine maintenance, staff tasks with photo proof and audit trail, Next.js 15, Better Auth, PostgreSQL"
 language: "TypeScript"
 stars: 1
 homepage: null
@@ -8,10 +9,12 @@ license: "MIT"
 pushed: "2026-09-24"
 topics: []
 video: "/assets/projects/studio-command-center/demo.mp4"
-image: "/assets/projects/studio-command-center/still-dashboard.webp"
-image_size: [1280, 800]
+still: "/assets/projects/studio-command-center/still-dashboard.webp"
+still_size: [1280, 800]
+image: "/assets/projects/studio-command-center/og.jpg"
 diagram: null
-figures: ["/assets/projects/studio-command-center/figure-machines.webp"]
+diagram_size: null
+figures: [{"src": "/assets/projects/studio-command-center/figure-machines.webp", "size": [1280, 800]}]
 ---
 {% raw %}
 ## What it is
