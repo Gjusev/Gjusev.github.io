@@ -1,77 +1,96 @@
 ---
 layout: default
 ---
-<div class="wrap">
-  <header class="side">
-    <div>
-      <h1>Youssef</h1>
-      <p class="role">Founder &amp; AI product engineer</p>
-      <p class="pitch">I build tools to test AI systems, make their decisions inspectable, and keep data under your control.</p>
-      <nav aria-label="Sections">
-        <a href="#about">About</a>
-        <a href="#work">Work</a>
-        <a href="#github">GitHub</a>
-        <a href="#writing">Writing</a>
-      </nav>
+{% assign d = site.data.projects %}
+{% assign total = 0 %}{% for g in d.groups %}{% assign total = total | plus: g.items.size %}{% endfor %}
+<header class="bar m">
+  <a class="wm" href="{{ '/' | relative_url }}">Youssef</a>
+  <nav aria-label="Main">
+    <a href="#projects">Projects</a>
+    <a href="#writing">Writing</a>
+    <a href="{{ d.links[0].url }}">LinkedIn</a>
+    <a href="{{ d.links[1].url }}">GitHub</a>
+  </nav>
+</header>
+
+<main id="main-content">
+  <section class="hero m">
+    <h1 class="line">
+      <span>Youssef</span>
+      <span class="frame" data-rotate>
+        <img src="{{ '/assets/work/forecast-banner.webp' | relative_url }}" width="1400" height="700" alt="forecast-arena poster: AI vs Reality">
+      </span>
+      <span>measures AI</span>
+    </h1>
+    <div class="intro">
+      <p class="lede">Founder &amp; AI product engineer in Siegen, Germany. I build open tools that test AI systems against reality, make their decisions inspectable and keep data local. Every number gets published, the bad ones too.</p>
+      <p class="actions">
+        <a class="btn" href="{{ d.links[0].url }}">Talk to me on LinkedIn</a>
+        <a href="#projects">See all {{ total }} projects</a>
+      </p>
     </div>
-    <ul class="social">
-      <li><a href="https://github.com/Gjusev">GitHub</a></li>
-      <li><a href="https://www.linkedin.com/in/youssef-o-6b93611b7/">LinkedIn</a></li>
-      <li><a href="https://mokka-agentur.de">mokka</a></li>
-      <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+  </section>
+
+  <section class="focus m" aria-labelledby="focus-h">
+    <h2 id="focus-h" class="h2">Current focus</h2>
+    <div class="focus-grid">
+      {% for p in d.focus %}
+      <article class="fx">
+        <a class="pic" href="https://github.com/Gjusev/{{ p.name }}">{% if p.video %}<video src="{{ '/assets/work/' | append: p.video | relative_url }}" poster="{{ '/assets/work/' | append: p.img | relative_url }}" muted loop playsinline autoplay preload="metadata" aria-label="{{ p.alt }}"></video>{% else %}<img src="{{ '/assets/work/' | append: p.img | relative_url }}" alt="{{ p.alt }}" width="1400" height="788" loading="lazy">{% endif %}</a>
+        <button class="num" aria-expanded="false" aria-controls="rc-{{ forloop.index }}">{{ p.value }}</button>
+        <p class="unit">{{ p.unit }}</p>
+        <p class="receipt" id="rc-{{ forloop.index }}">{{ p.receipt }}</p>
+        <h3><a href="https://github.com/Gjusev/{{ p.name }}">{{ p.name }}</a></h3>
+        <p>{{ p.desc }}</p>
+        {% if p.links %}<p class="links">{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</p>{% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section id="projects" class="projects m" aria-labelledby="proj-h">
+    <h2 id="proj-h" class="h2">All projects</h2>
+    <p class="sub">{{ total }} open repositories, grouped by what they are for.</p>
+
+    <div class="group" id="new-group" hidden>
+      <div class="gh"><h3>New on GitHub</h3><p>Pushed since this page was last edited.</p></div>
+      <ul class="rows" id="new-rows"></ul>
+    </div>
+
+    {% for g in d.groups %}
+    <div class="group">
+      <div class="gh"><h3>{{ g.title }}</h3><p>{{ g.note }}</p></div>
+      <ul class="rows">
+        {% for p in g.items %}
+        <li data-repo="{{ p.name }}">
+          <a class="name" href="https://github.com/Gjusev/{{ p.name }}">{{ p.name }}</a>
+          <span class="desc">{{ p.desc }}</span>
+          <span class="meta">{% if p.metric %}<b>{{ p.metric }}</b>{% endif %}{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</span>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </section>
+
+  <section id="writing" class="writing m" aria-labelledby="wr-h">
+    <div class="group">
+    <div class="gh"><h2 id="wr-h" class="h2">Writing</h2><p>Notes on evals, calibration and agents, with the numbers behind them. <a href="{{ '/feed.xml' | relative_url }}">RSS</a></p></div>
+    <ul class="posts">
+      {% for post in site.posts %}
+      <li><a href="{{ post.url | relative_url }}"><time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time><span><b>{{ post.title }}</b> {{ post.description }}</span></a></li>
+      {% endfor %}
     </ul>
-  </header>
+    </div>
+  </section>
+</main>
 
-  <main>
-    <section id="about">
-      <h2>About</h2>
-      <p>Founder of <a href="https://mokka-agentur.de">mokka</a>, based in Siegen, Germany. I work on AI evals, agent infrastructure and RAG in production, with a bias for measured results over demos: every project here ships with a benchmark, a limitation section, or both.</p>
-      <p>Much of it is privacy-first by design (local models, self-hosted, DSGVO-aware), because that is what my clients actually need.</p>
-    </section>
-
-    <section id="work">
-      <h2>Selected work</h2>
-      <ul class="list">
-        {% for p in site.data.work %}
-        <li>
-          <a class="card" href="{{ p.url }}">
-            <h3>{{ p.name }} <span aria-hidden="true">↗</span></h3>
-            <p>{{ p.desc }}</p>
-            <p class="tags">{% for t in p.tags %}<span>{{ t }}</span>{% endfor %}</p>
-          </a>
-          {% if p.links %}<p class="extra">{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</p>{% endif %}
-        </li>
-        {% endfor %}
-      </ul>
-    </section>
-
-    <section id="github">
-      <h2>Latest on GitHub</h2>
-      <p class="muted">Pulled live from my public repos.</p>
-      <ul class="list" id="repos" data-user="{{ site.github_user }}">
-        <li class="muted">Loading… <a href="https://github.com/{{ site.github_user }}?tab=repositories">or browse all repos</a></li>
-      </ul>
-    </section>
-
-    <section id="writing">
-      <h2>Writing</h2>
-      <ul class="list posts">
-        {% for post in site.posts %}
-        <li>
-          <a class="card" href="{{ post.url | relative_url }}">
-            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time>
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.description }}</p>
-          </a>
-        </li>
-        {% else %}
-        <li class="muted">Nothing yet.</li>
-        {% endfor %}
-      </ul>
-    </section>
-
-    <footer>
-      <p>Built with Jekyll on GitHub Pages. System fonts, no trackers. © {{ 'now' | date: "%Y" }}</p>
-    </footer>
-  </main>
-</div>
+<footer class="end">
+  <div class="m">
+  <div class="connect">
+    <div><h2 class="h2 ask">Building something that has to be right?</h2><p class="lede">Tell me about it. LinkedIn is the fastest way to reach me.</p></div>
+    <ul>{% for l in d.links %}<li><a href="{{ l.url }}">{{ l.label }}</a></li>{% endfor %}<li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li></ul>
+  </div>
+  <p class="crop" aria-hidden="true">Youssef</p>
+  </div>
+</footer>
