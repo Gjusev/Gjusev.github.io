@@ -170,7 +170,7 @@
 
   /* ---------- the flow diagram draws itself ---------- */
   $$("[data-flow]").forEach(fl => {
-    $$(".node", fl).forEach((n, i) => { n.style.setProperty("--nd", i * 140 + "ms"); n.style.setProperty("--cd", i * 140 + 300 + "ms"); });
+    $$(".node", fl).forEach((n, i) => { const d = Math.round(520 * (1 - Math.pow(.72, i))); n.style.setProperty("--nd", d + "ms"); n.style.setProperty("--cd", d + 260 + "ms"); });
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fl.classList.add("in"); io.disconnect(); } }), { threshold: .35 });
     io.observe(fl);
   });
@@ -181,7 +181,7 @@
     const els = $$(sel).filter(el => !el.closest(".hero"));
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" });
     let last = null, n = 0;
-    els.forEach(el => { n = el.parentElement === last ? n + 1 : 0; last = el.parentElement; el.style.setProperty("--d", Math.min(n, 8) * 70 + "ms"); el.setAttribute("data-reveal", ""); });
+    els.forEach(el => { n = el.parentElement === last ? n + 1 : 0; last = el.parentElement; el.style.setProperty("--d", Math.round(260 * (1 - Math.pow(.78, Math.min(n, 10)))) + "ms"); el.setAttribute("data-reveal", ""); });
     $$(".h2, .bm h1, .nf h1").forEach(h => { h.innerHTML = `<span class="mask"><span>${h.innerHTML}</span></span>`; els.push(h); });
     $$(".fx .pic, .ph-media, .figs figure, .next-img").forEach((el, i) => { el.setAttribute("data-clip", ""); els.push(el); });
     requestAnimationFrame(() => requestAnimationFrame(() => els.forEach(el => io.observe(el))));
@@ -211,7 +211,7 @@
     const dz = $(".pd", peek), img = $(".pc", peek);
     img.onload = () => img.classList.add("ready");
     let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
-    const loop = () => { x += (tx - x) * .18; y += (ty - y) * .18; peek.style.setProperty("--x", x + "px"); peek.style.setProperty("--y", y + "px"); raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(loop) : 0; };
+    const loop = () => { x += (tx - x) * .18; y += (ty - y) * .18; peek.style.transform = `translate3d(${x}px,${y}px,0)`; raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(loop) : 0; };
     $$(".rows li[data-thumb]").forEach(li => {
       li.addEventListener("mouseenter", e => { if (li.dataset.ratio) peek.style.setProperty("--ar", li.dataset.ratio); img.classList.remove("ready"); dz.src = li.dataset.dither || ""; img.src = li.dataset.thumb; if (img.complete) img.classList.add("ready"); peek.classList.add("on"); x = tx = e.clientX + 24; y = ty = e.clientY - 90; });
       li.addEventListener("mousemove", e => { tx = e.clientX + 24; ty = e.clientY - 90; if (!raf) raf = requestAnimationFrame(loop); });
