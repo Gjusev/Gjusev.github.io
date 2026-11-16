@@ -111,7 +111,7 @@ def og_card(name, still):
     W, H, PAD = 1200, 630, 48
     k = min((W - 2 * PAD) / im.width, (H - 2 * PAD) / im.height)
     im = im.resize((round(im.width * k), round(im.height * k)), Image.LANCZOS)
-    card = Image.new("RGB", (W, H), (241, 240, 236))
+    card = Image.new("RGB", (W, H), (243, 243, 246))
     card.paste(im, ((W - im.width) // 2, (H - im.height) // 2))
     card.save(dest, quality=84)
     return "/" + dest.relative_to(ROOT).as_posix()

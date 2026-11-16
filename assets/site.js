@@ -58,7 +58,7 @@
     const head = $(".hx-head", hx), h1 = $(".hx-t", hx), cv = $(".hx-c", hx), ctx = cv.getContext("2d");
     const CELL = 3;                                     // one dither dot = 3 css px
     const B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(v => (v + .5) / 16); // 4x4 Bayer
-    let W = 0, H = 0, alpha = null, img = null, ink = [38, 37, 30];
+    let W = 0, H = 0, alpha = null, img = null, ink = [243, 243, 246];
 
     // Draw the real title, line by line, into a small offscreen bitmap: one pixel per dither cell.
     const sample = () => {
@@ -179,7 +179,7 @@
   if ("IntersectionObserver" in window) {
     const sel = ".how-head .lede, .projects > .sub, .gidx, .fx > :not(.pic), .gh p, .gh h3, .rows li, .posts li, .connect .lede, .connect .actions, .connect li, .colophon, .ph-text > :not(h1), .facts .fact, .prose > *, .figs figcaption, .bm-head .lede, .next-text > *";
     const els = $$(sel).filter(el => !el.closest(".hero"));
-    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" });
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting || e.boundingClientRect.top < 0) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" }); // anything scrolled past is revealed too
     let last = null, n = 0;
     els.forEach(el => { n = el.parentElement === last ? n + 1 : 0; last = el.parentElement; el.style.setProperty("--d", Math.round(260 * (1 - Math.pow(.78, Math.min(n, 10)))) + "ms"); el.setAttribute("data-reveal", ""); });
     $$(".h2, .bm h1, .nf h1").forEach(h => { h.innerHTML = `<span class="mask"><span>${h.innerHTML}</span></span>`; els.push(h); });

@@ -8,7 +8,7 @@ from pathlib import Path
 from PIL import Image
 
 ROOT = Path(__file__).resolve().parent.parent
-INK, PAPER = (38, 37, 30), (229, 227, 221)  # --ink, --surface
+INK, PAPER = (12, 14, 43), (231, 231, 239)  # --ink, --surface
 
 
 def source(folder):
