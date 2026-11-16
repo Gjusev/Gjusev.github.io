@@ -95,7 +95,7 @@ a:hover{color:var(--accent)}
 .group{scroll-margin-top:24px}
 
 /* current focus */
-.focus-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,48px)}
+.focus-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(24px,3vw,48px) clamp(24px,3vw,56px)}
 .fx .pic{display:block;border-radius:var(--r);overflow:hidden;background:var(--surface);aspect-ratio:16/9}
 .fx .pic img,.fx .pic video{display:block;width:100%;height:100%;object-fit:contain;transition:transform .5s var(--out)}
 .num{all:unset;cursor:pointer;display:inline-block;margin-top:28px;font:500 clamp(64px,6.4vw,104px)/.9 var(--serif);letter-spacing:-.05em;font-variant-numeric:tabular-nums;text-decoration:underline;text-decoration-color:var(--cyan);text-decoration-thickness:4px;text-underline-offset:.12em;transition:color .15s}
@@ -179,7 +179,8 @@ a:hover{color:var(--accent)}
 .colophon{font-size:15px;max-width:60ch;margin-top:clamp(64px,7vw,104px)}
 .connect{display:grid;grid-template-columns:7fr 5fr;gap:var(--m);align-items:start}
 .ask{max-width:16ch;margin-bottom:20px}
-.connect ul{font-size:21px;display:grid;gap:6px;justify-self:end;min-width:12rem}
+.elsewhere{justify-self:end}
+.connect ul{font-size:21px;display:grid;gap:6px;min-width:12rem}
 .connect ul a{text-decoration:none}
 .crop{position:relative;font:600 clamp(120px,26.5vw,420px)/.74 var(--serif);letter-spacing:-.06em;white-space:nowrap;margin:clamp(40px,5vw,72px) 0 -.12em -.04em}
 .crop.striped{color:transparent}
@@ -285,7 +286,7 @@ a:hover{color:var(--accent)}
   .hx-proof{grid-template-columns:1fr 1fr;row-gap:32px}
   .focus-grid{grid-template-columns:1fr;gap:72px}
   .group,.connect,.how-head,.ph,.pb,.bm-head{grid-template-columns:1fr}
-  .connect ul{justify-self:start}
+  .elsewhere{justify-self:start}
   .gh,.figs{position:static}
   .rows li{grid-template-columns:1fr;gap:2px}
   .rows .meta{white-space:normal;flex-wrap:wrap}

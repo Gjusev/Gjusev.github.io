@@ -11,6 +11,15 @@ focus:
     value: "19.27"
     unit: lowest price-forecast error (MAE) of the eight
     receipt: Chronos-2 on the German day-ahead price, averaged over all 24 delivery hours. The simple seasonal baseline scores 28.20.
+  - name: MK-SH-V
+    img: mk-sh-v-poster.webp
+    video: mk-sh-v-demo.mp4
+    alt: "MK-SH-V demo: a receipt read by the model, calibrated probabilities next to the choice, a refusal under the gate"
+    desc: A 260M visual decision model I trained from scratch. It reads documents and screenshots, answers with calibrated odds, and refuses instead of guessing when its confidence sits below a validated gate.
+    value: "0.839"
+    unit: accuracy on held-out real screenshots; a model 15× larger scores 0.731 zero-shot
+    receipt: The released checkpoint on the held-out real-screenshot test. The refusal gate was fitted on a separate calibration split, by a rule frozen in advance.
+    links: {Try the demo: "https://huggingface.co/spaces/Gjusev/MK-SH-V-demo", Model: "https://huggingface.co/Gjusev/MK-SH-V"}
   - name: laya-triage
     img: laya-triage.webp
     alt: Poster reading "At what confidence do you let a model close a ticket? 0.84. Measured."
