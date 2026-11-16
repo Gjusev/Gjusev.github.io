@@ -9,4 +9,4 @@ plugins: [jekyll-feed, jekyll-seo-tag]
 defaults:
   - scope: {path: "", type: posts}
     values: {layout: post}
-exclude: [README.md, Gemfile, node_modules, .taste-skill, design-picker.html]
+exclude: [README.md, Gemfile, node_modules, .taste-skill, scripts, design-picker.html]
