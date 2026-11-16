@@ -20,4 +20,4 @@
   note: The rules I check a page against.
   items:
     - {name: Laws of UX, url: "https://lawsofux.com/es/", desc: "Thirty psychology principles for interfaces, from Fitts's law to the peak-end rule.", used: "Grouped project index, one primary action per screen, a strong last section."}
-    - {name: Humane by Design, url: "https://humanebydesign.com/", desc: "Principles for products that respect attention: empowering, finite and inclusive.", used: "No trackers, animations that end, a page with a real end."}
+    - {name: Humane by Design, url: "https://humanebydesign.com/", desc: "Design principles for products that respect attention: finite by design, inclusive by default.", used: "No trackers, animations that end, a page with a real end."}

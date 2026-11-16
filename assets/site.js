@@ -56,9 +56,9 @@
   const hx = $(".hx");
   if (hx) {
     const head = $(".hx-head", hx), h1 = $(".hx-t", hx), cv = $(".hx-c", hx), ctx = cv.getContext("2d");
-    const CELL = 3;                                     // one dither dot = 3 css px
+    const CELL = 2;                                     // one dither dot = 2 css px
     const B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(v => (v + .5) / 16); // 4x4 Bayer
-    let W = 0, H = 0, alpha = null, img = null, ink = [243, 243, 246];
+    let W = 0, H = 0, alpha = null, seed = null, img = null, ink = [243, 243, 246];
 
     // Draw the real title, line by line, into a small offscreen bitmap: one pixel per dither cell.
     const sample = () => {
@@ -83,7 +83,8 @@
       });
       const d = o.getImageData(0, 0, W, H).data;
       alpha = new Float32Array(W * H);
-      for (let i = 0; i < W * H; i++) alpha[i] = d[i * 4 + 3] / 255;
+      seed = new Float32Array(W * H);
+      for (let i = 0; i < W * H; i++) { alpha[i] = d[i * 4 + 3] / 255; seed[i] = Math.random(); }
       img = ctx.createImageData(W, H);
       const c = cs.color.match(/\d+/g); if (c) ink = c.slice(0, 3).map(Number);
     };
@@ -104,12 +105,22 @@
     // 1 · on load: from noise to type in about 1.6 s, like a model settling on an answer
     const resolve = () => {
       sample(); hx.classList.add("dither");
-      const t0 = performance.now(), dur = 1700;
+      cv.style.transition = "none";
+      const t0 = performance.now(), dur = 2000, rgb = ink.join(" ");
+      const ramp = (k, a, b) => { const t = clamp((k - a) / (b - a)); return t * t * (3 - 2 * t); };
       const step = now => {
-        const k = clamp((now - t0) / dur), n = Math.pow(1 - k, 2.2);
-        render(() => n);
-        if (k < 1) requestAnimationFrame(step);
-        else setTimeout(() => { hx.classList.remove("dither"); lensReady = true; }, 120);
+        const k = clamp((now - t0) / dur), e = 1 - Math.pow(1 - k, 2.4);
+        // each dot settles at its own moment, so the word converges instead of fading as one block
+        render((x, y) => Math.max(0, (1 - e) * 1.55 - seed[y * W + x] * .55));
+        // the last stretch overlaps: live type comes up underneath while the dots dissolve, softened by a little blur
+        const live = ramp(k, .5, .92), gone = ramp(k, .62, 1);
+        h1.style.color = `rgb(${rgb} / ${live})`;
+        cv.style.opacity = 1 - gone;
+        cv.style.filter = gone > 0 ? `blur(${(gone * 2.5).toFixed(2)}px)` : "";
+        if (k < 1) return requestAnimationFrame(step);
+        hx.classList.remove("dither");
+        h1.style.color = ""; cv.style.opacity = ""; cv.style.filter = ""; cv.style.transition = "";
+        lensReady = true;
       };
       requestAnimationFrame(step);
     };

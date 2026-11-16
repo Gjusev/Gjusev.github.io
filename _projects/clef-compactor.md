@@ -23,7 +23,7 @@ figures: []
 **Query-aware RAG context compaction with [Cloudflare Clef](https://blog.cloudflare.com/clef-decision-models/).**
 Score an entire retrieval batch against the query, retain the chunks that earn their place, and send a smaller, auditable context to your LLM.
 
-[Get started](#quick-start) · [Watch the demo](#demo) · [How it works](#how-it-works) · [Benchmarks](#benchmarks) · [Kaggle notebook](https://www.kaggle.com/code/gjusev/clef-compactor-evals)
+[Quick start](#quick-start) · [Watch the demo](#demo) · [How it works](#how-it-works) · [Benchmarks](#benchmarks) · [Kaggle notebook](https://www.kaggle.com/code/gjusev/clef-compactor-evals)
 
 ## How it works
 
