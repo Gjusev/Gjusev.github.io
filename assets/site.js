@@ -55,7 +55,7 @@
 
   /* ---------- hero · the title resolves from 1-bit noise, and a lens shows the raw signal again ---------- */
   const hx = $(".hx");
-  if (hx && !reduce) {
+  if (hx) {
     const head = $(".hx-head", hx), h1 = $(".hx-t", hx), cv = $(".hx-c", hx), ctx = cv.getContext("2d");
     const CELL = 3;                                     // one dither dot = 3 css px
     const B = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5].map(v => (v + .5) / 16); // 4x4 Bayer
@@ -152,7 +152,7 @@
     const fx = b.closest(".fx"), open = fx.classList.toggle("open");
     $$(".num, .how-m", fx).forEach(x => x.setAttribute("aria-expanded", open));
   }));
-  if (!reduce) {
+  {
     const cio = new IntersectionObserver(es => es.forEach(e => {
       if (!e.isIntersecting) return; cio.unobserve(e.target);
       const el = e.target, txt = el.dataset.count, m = txt.match(/^([^\d]*)([\d.,]+)(.*)$/);
@@ -171,13 +171,12 @@
   /* ---------- the flow diagram draws itself ---------- */
   $$("[data-flow]").forEach(fl => {
     $$(".node", fl).forEach((n, i) => { n.style.setProperty("--nd", i * 140 + "ms"); n.style.setProperty("--cd", i * 140 + 300 + "ms"); });
-    if (reduce) { fl.classList.add("in"); return; }
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { fl.classList.add("in"); io.disconnect(); } }), { threshold: .35 });
     io.observe(fl);
   });
 
   /* ---------- section entrances ---------- */
-  if (!reduce && "IntersectionObserver" in window) {
+  if ("IntersectionObserver" in window) {
     const sel = ".how-head .lede, .projects > .sub, .gidx, .fx > :not(.pic), .gh p, .gh h3, .rows li, .posts li, .connect .lede, .connect .actions, .connect li, .colophon, .ph-text > :not(h1), .facts .fact, .prose > *, .figs figcaption, .bm-head .lede, .next-text > *";
     const els = $$(sel).filter(el => !el.closest(".hero"));
     const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -6% 0px" });
@@ -190,7 +189,7 @@
 
     // The closing name is cut into stripes that slide into register as the page ends (after Space Type Generator).
     const crop = $(".crop");
-    if (crop) {
+    if (crop && !reduce) {
       const N = 7, word = crop.textContent.trim();
       crop.classList.add("striped");
       const bands = Array.from({ length: N }, (_, i) => {
@@ -214,7 +213,7 @@
     let x = 0, y = 0, tx = 0, ty = 0, raf = 0;
     const loop = () => { x += (tx - x) * .18; y += (ty - y) * .18; peek.style.setProperty("--x", x + "px"); peek.style.setProperty("--y", y + "px"); raf = Math.abs(tx - x) + Math.abs(ty - y) > .5 ? requestAnimationFrame(loop) : 0; };
     $$(".rows li[data-thumb]").forEach(li => {
-      li.addEventListener("mouseenter", e => { img.classList.remove("ready"); dz.src = li.dataset.dither || ""; img.src = li.dataset.thumb; if (img.complete) img.classList.add("ready"); peek.classList.add("on"); x = tx = e.clientX + 24; y = ty = e.clientY - 90; });
+      li.addEventListener("mouseenter", e => { if (li.dataset.ratio) peek.style.setProperty("--ar", li.dataset.ratio); img.classList.remove("ready"); dz.src = li.dataset.dither || ""; img.src = li.dataset.thumb; if (img.complete) img.classList.add("ready"); peek.classList.add("on"); x = tx = e.clientX + 24; y = ty = e.clientY - 90; });
       li.addEventListener("mousemove", e => { tx = e.clientX + 24; ty = e.clientY - 90; if (!raf) raf = requestAnimationFrame(loop); });
       li.addEventListener("mouseleave", () => peek.classList.remove("on"));
     });

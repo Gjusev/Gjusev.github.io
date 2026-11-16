@@ -1,9 +1,8 @@
 // Animated grain gradient for the closing field, after a ShaderGradient preset
 // (plane, colors #ff5005 / #dbba95 / #d0bce1, density 1.3, frequency 5.5, speed 0.4, rotation 50deg, grain on).
-// Plain WebGL, about 1 KB of shader. Renders only while on screen; one still frame under reduced motion.
+// Plain WebGL, about 1 KB of shader. Renders only while on screen; a slower drift under reduced motion.
 (() => {
-  const canvas = document.querySelector("canvas.grad");
-  if (!canvas) return;
+  document.querySelectorAll("canvas.grad").forEach(canvas => {
   const gl = canvas.getContext("webgl", { antialias: false, alpha: false, powerPreference: "low-power" });
   if (!gl) return; // the CSS sand background stays
   const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -45,14 +44,15 @@ void main(){
     gl.viewport(0, 0, canvas.width, canvas.height); gl.uniform2f(uR, canvas.width, canvas.height);
   };
   const draw = time => { gl.uniform1f(uT, time); gl.drawArrays(gl.TRIANGLES, 0, 3); };
-  size(); addEventListener("resize", () => { size(); if (reduce) draw(8); });
+  size(); addEventListener("resize", size);
   canvas.classList.add("on");
-  if (reduce) { draw(8); return; }
+  const speed = reduce ? .35 : 1; // a slow colour drift stays: it does not move anything across the screen
 
   let raf = 0, t0 = performance.now() - 8000;
-  const loop = now => { draw((now - t0) / 1000); raf = requestAnimationFrame(loop); };
+  const loop = now => { draw((now - t0) / 1000 * speed); raf = requestAnimationFrame(loop); };
   new IntersectionObserver(([e]) => {
     if (e.isIntersecting && !raf) raf = requestAnimationFrame(loop);
     else if (!e.isIntersecting && raf) { cancelAnimationFrame(raf); raf = 0; }
   }).observe(canvas);
+  });
 })();

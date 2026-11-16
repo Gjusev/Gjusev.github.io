@@ -2,7 +2,7 @@
 name: "folio"
 title: "folio"
 summary: "Self-hosted scientific LaTeX editor"
-description: "Self-hosted scientific LaTeX editor. An open-source project by Youssef, AI product engineer in Siegen."
+description: "Self-hosted scientific LaTeX editor. One of my open-source projects on AI evaluation and tooling."
 language: "TypeScript"
 stars: 3
 homepage: "https://folio.mokka-agentur.de"

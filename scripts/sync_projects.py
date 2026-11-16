@@ -218,7 +218,7 @@ def seo(text, fallback=""):
         end = max(cut.rfind(". "), cut.rfind("! "), cut.rfind("? "))
         t = cut[:end + 1] if end > 60 else cut[:cut.rfind(" ")].rstrip(",;:") + "."
     if len(t) < 50:
-        t = f"{t.rstrip('.')}. An open-source project by Youssef, AI product engineer in Siegen."
+        t = f"{t.rstrip('.')}. One of my open-source projects on AI evaluation and tooling."
     return t
 
 
