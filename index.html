@@ -1,0 +1,77 @@
+---
+layout: default
+---
+<div class="wrap">
+  <header class="side">
+    <div>
+      <h1>Youssef</h1>
+      <p class="role">Founder &amp; AI product engineer</p>
+      <p class="pitch">I build tools to test AI systems, make their decisions inspectable, and keep data under your control.</p>
+      <nav aria-label="Sections">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#github">GitHub</a>
+        <a href="#writing">Writing</a>
+      </nav>
+    </div>
+    <ul class="social">
+      <li><a href="https://github.com/Gjusev">GitHub</a></li>
+      <li><a href="https://www.linkedin.com/in/youssef-o-6b93611b7/">LinkedIn</a></li>
+      <li><a href="https://mokka-agentur.de">mokka</a></li>
+      <li><a href="{{ '/feed.xml' | relative_url }}">RSS</a></li>
+    </ul>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>About</h2>
+      <p>Founder of <a href="https://mokka-agentur.de">mokka</a>, based in Siegen, Germany. I work on AI evals, agent infrastructure and RAG in production, with a bias for measured results over demos: every project here ships with a benchmark, a limitation section, or both.</p>
+      <p>Much of it is privacy-first by design (local models, self-hosted, DSGVO-aware), because that is what my clients actually need.</p>
+    </section>
+
+    <section id="work">
+      <h2>Selected work</h2>
+      <ul class="list">
+        {% for p in site.data.work %}
+        <li>
+          <a class="card" href="{{ p.url }}">
+            <h3>{{ p.name }} <span aria-hidden="true">↗</span></h3>
+            <p>{{ p.desc }}</p>
+            <p class="tags">{% for t in p.tags %}<span>{{ t }}</span>{% endfor %}</p>
+          </a>
+          {% if p.links %}<p class="extra">{% for l in p.links %}<a href="{{ l[1] }}">{{ l[0] }}</a>{% endfor %}</p>{% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <section id="github">
+      <h2>Latest on GitHub</h2>
+      <p class="muted">Pulled live from my public repos.</p>
+      <ul class="list" id="repos" data-user="{{ site.github_user }}">
+        <li class="muted">Loading… <a href="https://github.com/{{ site.github_user }}?tab=repositories">or browse all repos</a></li>
+      </ul>
+    </section>
+
+    <section id="writing">
+      <h2>Writing</h2>
+      <ul class="list posts">
+        {% for post in site.posts %}
+        <li>
+          <a class="card" href="{{ post.url | relative_url }}">
+            <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %Y" }}</time>
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.description }}</p>
+          </a>
+        </li>
+        {% else %}
+        <li class="muted">Nothing yet.</li>
+        {% endfor %}
+      </ul>
+    </section>
+
+    <footer>
+      <p>Built with Jekyll on GitHub Pages. System fonts, no trackers. © {{ 'now' | date: "%Y" }}</p>
+    </footer>
+  </main>
+</div>

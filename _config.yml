@@ -1,0 +1,11 @@
+title: Youssef — gj0xv
+description: Founder & AI product engineer. AI evals, agent infrastructure, RAG, privacy-first tooling.
+url: https://gjusev.github.io
+lang: en
+permalink: /writing/:year/:title/
+plugins: [jekyll-feed, jekyll-seo-tag]
+github_user: Gjusev
+defaults:
+  - scope: {path: "", type: posts}
+    values: {layout: post}
+exclude: [README.md, Gemfile, node_modules]
